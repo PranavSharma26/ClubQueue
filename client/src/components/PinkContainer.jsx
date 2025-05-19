@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search'
 export const PinkContainer = () => {
   return (
     <div
-      className="w-full bg-primary min-h-[500px] flex justify-center items-center flex-col py-10 bg-[#EE2B69] gap-10 px-6"
+      className="w-full bg-primary min-h-[200px] sm:min-h-[500px] flex justify-center items-center flex-col py-10 bg-[#EE2B69] gap-10 px-6"
       style={{
         backgroundImage: `linear-gradient(
           to right,
@@ -19,7 +19,7 @@ export const PinkContainer = () => {
       }}
     >
       <div className="bg-black p-4 rounded-sm max-w-[900px] text-center">
-        <p className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide">
+        <p className="text-white text-2xl sm:text-5xl md:text-6xl font-extrabold tracking-wide">
           Discover campus events and club activities effortlessly.
         </p>
       </div>
