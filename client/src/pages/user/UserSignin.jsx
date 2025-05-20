@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import axios from "axios";
+import { useAuth } from '../../context/UserContext'
+
 export const UserSignin = () => {
   const navigate = useNavigate();
+  const {login} = useAuth()
 
   const {
     register,
@@ -16,6 +19,8 @@ export const UserSignin = () => {
     try {
       const response = await axios.post('http://localhost:3000/api/signin/user',data)
       console.log('Successful')
+      login(response.data.user)
+      navigate('/')
       Swal.fire({
         position: "center",
         icon: "success",

@@ -24,11 +24,11 @@ export const Signin = () => {
         backgroundPosition: "center",
         backgroundRepeat: "repeat",
       }}>
-				<button className="border-3 h-56 flex justify-center items-center p-9 rounded-xl shadow-2xl bg-white text-3xl sm:text-4xl
-				md:text-6xl  tracking-wide hover:bg-gray-200" onClick={handleUserLogin}>
+				<button className="border-3 h-56 flex justify-center items-center p-9 rounded-xl shadow-2xl bg-yellow-400 text-3xl sm:text-4xl
+				md:text-6xl  tracking-wide hover:bg-yellow-500" onClick={handleUserLogin}>
 					<p>Login as User</p>
 				</button>
-				<button className="border-3 h-56 flex justify-center items-center p-9 rounded-xl shadow-2xl bg-white text-3xl sm:text-4xl md:text-6xl tracking-wide hover:bg-gray-200" onClick={handleClubLogin}>
+				<button className="border-3 h-56 flex justify-center items-center p-9 rounded-xl shadow-2xl bg-yellow-400 text-3xl sm:text-4xl md:text-6xl tracking-wide hover:bg-yellow-500" onClick={handleClubLogin}>
 					<p>Login as Club</p>
 				</button>
 			</div>

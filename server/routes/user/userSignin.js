@@ -36,7 +36,8 @@ router.post("/user", async (req, res) => {
 			return res.status(400).json({error:"Username or Email Not Found"})
 		}
 		if(await bcrypt.compare(password,rows[0].password)){
-			return res.status(200).json({message:"Login Successful"})
+      const {password, ...userWithoutPassword} = rows[0]
+			return res.status(200).json({user: userWithoutPassword})
 		}
 		else{
 			return res.status(402).json({error:"Incorrect Password"})
