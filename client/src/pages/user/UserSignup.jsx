@@ -54,7 +54,18 @@ export const UserSignup = () => {
             <input
               {...register("username", {
                 required: "Username is required",
-                maxLength: 20,
+                minLength:{
+                  value: 3,
+                  message: "Minimum 3 characters are required"
+                },
+                maxLength:{
+                  value: 20,
+                  message: "Maximum 20 characters allowed"
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9_]+$/,
+                  message: "Only letters, numbers, and underscores are allowed"
+                }
               })}
               type="text"
               placeholder="Enter Username"

@@ -32,7 +32,9 @@ router.post("/user", async (req, res) => {
     let db = await getDB();
     const { credential, password } = req.body;
 		const rows = await isCredentialExist(credential,db)
-
+		if(!rows){
+			return res.status(400).json({error:"Username or Email Not Found"})
+		}
 		if(await bcrypt.compare(password,rows[0].password)){
 			return res.status(200).json({message:"Login Successful"})
 		}
