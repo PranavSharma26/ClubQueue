@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios'
+import Swal from 'sweetalert2'
 export const UserSignup = () => {
   const navigate = useNavigate();
 
@@ -12,7 +13,29 @@ export const UserSignup = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    try {
+      const response = await axios.post('http://localhost:3000/api/signup/user',data)
+      console.log("Successfull")
+      navigate('/')
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Sign Up Successful",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true
+      });
+      
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: error.response.data.error,
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true
+      });
+    }
   };
 
   return (
