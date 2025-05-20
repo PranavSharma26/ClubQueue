@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import {dbConnect} from "./db/dbConnect.js";
 import userSignupRoutes from "./routes/user/userSignup.js"
+import userSigninRoutes from "./routes/user/userSignin.js"
 dotenv.config();
 
 const port = process.env.PORT;
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api/signup',userSignupRoutes);
+app.use('/api/signin',userSigninRoutes);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
