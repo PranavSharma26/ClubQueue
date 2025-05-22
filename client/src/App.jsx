@@ -1,19 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Signin } from "./pages/Signin";
-import { UserSignin } from "./pages/user/userSignin";
+import { Signin } from "./pages/auth/Signin";
 import { PageNotFound } from "./pages/PageNotFound";
-import { UserSignup } from "./pages/user/userSignup";
-import { UserProfile } from "./pages/user/UserProfile";
-import { UserSettings } from "./pages/user/UserSettings";
+import { UserProfile } from "./pages/common/Profile";
+import { UserSettings } from "./pages/common/Settings";
 import ProtectedRoute from "./context/ProtectedRoute";
+import { Signup } from "./pages/auth/Signup";
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<Signin />} />
-      <Route path="/signin/user" element={<UserSignin />} />
-      <Route path="/signup/user" element={<UserSignup />} />
+      <Route path="/signup" element={<Signup />} />
       <Route
         path="/user/:username"
         element={

@@ -1,0 +1,62 @@
+import express from 'express'
+import bcrypt from 'bcrypt'
+import { getDB } from '../db/dbConnect.js'
+import {insertClub, insertUser, isEmailExist, isUsernameExist} from '../functions/function.js'
+const router = express.Router()
+
+router.post('/user',async(req,res)=>{
+    try {
+        let db=await getDB()
+        const {username,email,firstName,lastName,password} = req.body
+        const email_lower = email.toLowerCase()
+        if (await isUsernameExist(username, db,'users'))
+              return res.status(400).json({ error: "Username Already Exists" });
+            if (await isEmailExist(email_lower, db,'users'))
+              return res.status(400).json({ error: "Email Already Exist" });
+        
+            const hashedPassword = await bcrypt.hash(password, 10);
+        
+            return (await insertUser(
+              username,
+              email_lower,
+              firstName,
+              lastName,
+              hashedPassword,
+              db
+            ))
+              ? res.status(201).json({ message: "User Added Successfully" })
+              : res.status(500).json({ error: "Error Inserting User" });
+    } catch (err) {
+        console.log("Error signing up",err)
+        return res.status(500).json({error:"Internal Server Error"})
+    }
+})
+
+router.post('/club',async(req,res)=>{
+    try {
+        let db=await getDB()
+        const {username,email,bio,password} = req.body
+        const email_lower = email.toLowerCase()
+        if (await isUsernameExist(username, db,'clubs'))
+              return res.status(400).json({ error: "Clubname Already Exists" });
+            if (await isEmailExist(email_lower, db,'clubs'))
+              return res.status(400).json({ error: "Email Already Exist" });
+        
+            const hashedPassword = await bcrypt.hash(password, 10);
+        
+            return (await insertClub(
+              username,
+              email_lower,
+              bio,
+              hashedPassword,
+              db
+            ))
+              ? res.status(201).json({ message: "Club Added Successfully" })
+              : res.status(500).json({ error: "Error Inserting Club" });
+    } catch (err) {
+        console.log("Error signing up",err)
+        return res.status(500).json({error:"Internal Server Error"})
+    }
+})
+
+export default router;

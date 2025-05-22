@@ -30,9 +30,9 @@ export const Navbar = () => {
   };
 
   const handleLogout = () => {
+    navigate("/");
     logout()
     setAnchorEl(null)
-    navigate("/");
     Swal.fire({
       position: "center",
       icon: "success",
