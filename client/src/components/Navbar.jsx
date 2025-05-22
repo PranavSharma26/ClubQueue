@@ -53,14 +53,14 @@ export const Navbar = () => {
 
   return (
     <div className="border-b-1 p-2 px-4 flex flex-row justify-between items-center">
-      <div className="flex text-xl hover:cursor-pointer" onClick={handleHome}>
+      <div className="flex text-2xl hover:cursor-pointer" onClick={handleHome}>
         <p className="font-stretch-150% font-extrabold">Club</p>
         <p className="font-stretch-150% font-extrabold text-[#EE2B69]">Queue</p>
       </div>
 
       {user ? (
         <>
-          <div className="flex gap-1  items-center rounded-xl">
+          <div className="flex gap-1 items-center rounded-xl">
             <p className="text-sm text-black tracking-tight normal-case">{user?.username}</p>
             <Button
               id="basic-button"
@@ -69,16 +69,13 @@ export const Navbar = () => {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <AccountCircleIcon className="text-black hover:bg-gray-200 rounded-full hover:text-blue-600"/>
+              <AccountCircleIcon className="text-black hover:bg-gray-300 rounded-full hover:text-blue-600"/>
             </Button>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
-              // MenuListProps={{
-              //   "aria-labelledby": "basic-button",
-              // }}
             >
               <MenuItem onClick={handleProfile}>Profile</MenuItem>
               <MenuItem onClick={handleSettings}>Settings</MenuItem>

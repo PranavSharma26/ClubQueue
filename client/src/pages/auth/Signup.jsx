@@ -15,11 +15,8 @@ export const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data)
-      const {bio, ...userData} = data
-      const {firstName, lastName, ...clubData} = data
-      console.log(userData)
-      console.log(clubData)
+      const { bio, ...userData } = data;
+      const { firstName, lastName, ...clubData } = data;
       const endpoint = isUser
         ? "http://localhost:3000/api/signup/user"
         : "http://localhost:3000/api/signup/club";
@@ -47,7 +44,6 @@ export const Signup = () => {
   };
 
   const handleToggle = () => setIsUser(!isUser);
-
 
   return (
     <>
@@ -87,7 +83,7 @@ export const Signup = () => {
             <div className="w-full">
               <input
                 {...register("username", {
-                  required: "Username is required",
+                  required: 'Name Required',
                   minLength: {
                     value: 3,
                     message: "Minimum 3 characters are required",
@@ -97,7 +93,7 @@ export const Signup = () => {
                     message: "Maximum 20 characters allowed",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_]+$/,
+                    value: /^[a-zA-Z0-9_#!@*$()]+$/,
                     message:
                       "Only letters, numbers, and underscores are allowed",
                   },
