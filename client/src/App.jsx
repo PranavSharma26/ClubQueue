@@ -2,10 +2,11 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Signin } from "./pages/auth/Signin";
 import { PageNotFound } from "./pages/PageNotFound";
-import { UserProfile } from "./pages/common/Profile";
+import { Profile } from "./pages/common/Profile";
 import { UserSettings } from "./pages/common/Settings";
-import ProtectedRoute from "./context/ProtectedRoute";
+import UserProtectedRoute from "./context/UserProtectedRoute";
 import { Signup } from "./pages/auth/Signup";
+import ClubProtectedRoute from "./context/ClubProtectedRoute";
 function App() {
   return (
     <Routes>
@@ -15,17 +16,33 @@ function App() {
       <Route
         path="/user/:username"
         element={
-          <ProtectedRoute>
-            <UserProfile />
-          </ProtectedRoute>
+          <UserProtectedRoute>
+            <Profile />
+          </UserProtectedRoute>
+        }
+      />
+      <Route
+        path="/club/:username"
+        element={
+          <ClubProtectedRoute>
+            <Profile />
+          </ClubProtectedRoute>
         }
       />
       <Route
         path="user/settings"
         element={
-          <ProtectedRoute>
+          <UserProtectedRoute>
             <UserSettings />
-          </ProtectedRoute>
+          </UserProtectedRoute>
+        }
+      />
+      <Route
+        path="club/settings"
+        element={
+          <ClubProtectedRoute>
+            <UserSettings />
+          </ClubProtectedRoute>
         }
       />
       <Route path="*" element={<PageNotFound />} />

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from "../../context/UserContext";
+import { useClubAuth } from "../../context/ClubContext";
 
 export const Signin = () => {
   const {
@@ -13,7 +14,8 @@ export const Signin = () => {
   } = useForm();
   const navigate = useNavigate();
   const [isUser, setIsUser] = useState(true);
-  const {login} = useAuth()
+  const {loginUser} = useAuth()
+  const {loginClub} = useClubAuth()
   const handleToggle = () => {
     setIsUser(!isUser);
   };
@@ -25,8 +27,8 @@ export const Signin = () => {
         : "http://localhost:3000/api/signin/club";
       const response = await axios.post(endpoint, data);
       console.log("Successful");
-      if(isUser) login(response.data.user);
-      else login(response.data.club);
+      if(isUser) loginUser(response.data.user);
+      else loginClub(response.data.club);
       navigate("/");
       Swal.fire({
         position: "center",

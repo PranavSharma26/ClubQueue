@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/UserContext.jsx";
+import { ClubProvider } from "./context/ClubContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ClubProvider>
+          <App />
+        </ClubProvider>
       </UserProvider>
     </BrowserRouter>
   </StrictMode>

@@ -93,7 +93,7 @@ export const Signup = () => {
                     message: "Maximum 20 characters allowed",
                   },
                   pattern: {
-                    value: /^[a-zA-Z0-9_#!@*$()]+$/,
+                    value: /^[a-zA-Z0-9_#!@*$()-]+$/,
                     message:
                       "Only letters, numbers, and underscores are allowed",
                   },

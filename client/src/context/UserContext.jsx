@@ -8,17 +8,17 @@ export const UserProvider = ({children}) => {
         return storedUser ? JSON.parse(storedUser) : null
     })
 
-    const login = (userData) => {
+    const loginUser = (userData) => {
         localStorage.setItem('user',JSON.stringify(userData))
         setUser(userData)
     }
-    const logout = () => {
+    const logoutUser = () => {
         localStorage.removeItem('user')
         setUser(null)
     }
 
     return(
-        <UserContext.Provider value={{user,login,logout}}>
+        <UserContext.Provider value={{user,loginUser,logoutUser}}>
             {children}
         </UserContext.Provider>
     )

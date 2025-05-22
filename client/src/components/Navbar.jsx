@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "@mui/material/Menu";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import LoginIcon from "@mui/icons-material/Login";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Swal from "sweetalert2";
+import { useClubAuth } from "../context/ClubContext";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
 
+  
+  const { user, logoutUser } = useAuth();
+  const { club, logoutClub } = useClubAuth();
+  const isUser = !!user
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -31,24 +37,27 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     navigate("/");
-    logout()
-    setAnchorEl(null)
+    if(isUser) logoutUser();
+    else logoutClub();
+    setAnchorEl(null);
     Swal.fire({
       position: "center",
       icon: "success",
       title: "Logged Out Successfully",
-      timerProgressBar:true,
+      timerProgressBar: true,
       showConfirmButton: false,
-      timer: 1000
+      timer: 1000,
     });
-  }
+  };
 
   const handleProfile = () => {
-    navigate(`/user/${user.username}`)
+    if (isUser) navigate(`/user/${user.username}`);
+    else navigate(`/club/${club.username}`);
   };
 
   const handleSettings = () => {
-    navigate('/user/settings')
+    if (isUser) navigate("/user/settings");
+    else navigate("/club/settings");
   };
 
   return (
@@ -58,10 +67,12 @@ export const Navbar = () => {
         <p className="font-stretch-150% font-extrabold text-[#EE2B69]">Queue</p>
       </div>
 
-      {user ? (
+      {(user || club) ? (
         <>
           <div className="flex gap-1 items-center rounded-xl">
-            <p className="text-sm text-black tracking-tight normal-case">{user?.username}</p>
+            <p className="text-sm text-black tracking-tight normal-case">
+              {user?.username || club?.username}
+            </p>
             <Button
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -69,7 +80,7 @@ export const Navbar = () => {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <AccountCircleIcon className="text-black hover:bg-gray-300 rounded-full hover:text-blue-600"/>
+              <AccountCircleIcon className="text-black hover:bg-gray-300 rounded-full hover:text-blue-600" />
             </Button>
             <Menu
               id="basic-menu"
