@@ -51,8 +51,8 @@ export const Navbar = () => {
   };
 
   const handleProfile = () => {
-    if (isUser) navigate(`/user/${user.username}`);
-    else navigate(`/club/${club.username}`);
+    if (isUser) navigate(`/user/${encodeURIComponent(user.username)}`);
+    else navigate(`/club/${encodeURIComponent(club.username)}`);
   };
 
   const handleSettings = () => {

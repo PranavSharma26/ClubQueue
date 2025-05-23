@@ -4,7 +4,7 @@ import { useClubAuth } from "./ClubContext"
 const ClubProtectedRoute = ({children}) =>{
     
     const {club} = useClubAuth()
-    if(!club) <Navigate to='/signin'/>
+    if(!club) return <Navigate to='/signin'/>
     return children
 }
 

@@ -56,3 +56,22 @@ export const insertClub = async (
     return false;
   }
 };
+
+export const fetchUserData= async (id,db)=>{
+  const query=`
+    SELECT username, email, firstName, lastName, createdAt 
+    FROM users
+    WHERE id = ?
+    `
+    const [user] = await db.query(query,[id]);
+    return user[0];
+}
+export const fetchClubData= async (id,db)=>{
+  const query=`
+    SELECT username, email, description, logo, createdAt 
+    FROM clubs
+    WHERE id = ?
+    `
+    const [club] = await db.query(query,[id]);
+    return club[0];
+}

@@ -25,10 +25,14 @@ export const Signin = () => {
       const endpoint = isUser
         ? "http://localhost:3000/api/signin/user"
         : "http://localhost:3000/api/signin/club";
-      const response = await axios.post(endpoint, data);
+      const response = await axios.post(endpoint, data,{withCredentials: true});
       console.log("Successful");
-      if(isUser) loginUser(response.data.user);
-      else loginClub(response.data.club);
+
+      const meResponse = await axios.get('http://localhost:3000/api/me',{withCredentials: true})
+
+      if(meResponse.data.role==="user") loginUser(meResponse.data.data);
+      else if(meResponse.data.role==="club") loginClub(meResponse.data.data);
+
       navigate("/");
       Swal.fire({
         position: "center",
