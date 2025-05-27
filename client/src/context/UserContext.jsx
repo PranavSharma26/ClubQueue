@@ -8,8 +8,13 @@ export const UserProvider = ({ children }) => {
   const loginUser = (userData) => {
     setUser(userData);
   };
-  const logoutUser = () => {
-    setUser(null);
+  const logoutUser = async () => {
+    try {
+      await axios.post("http://localhost:3000/api/logout", {}, { withCredentials: true });
+      setUser(null);
+    } catch (error) {
+      console.error("Failed to logout user:", error);
+    }
   };
   useEffect(() => {
     const fetchUser = async () => {

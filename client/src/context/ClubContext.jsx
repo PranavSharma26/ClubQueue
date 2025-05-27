@@ -8,8 +8,13 @@ export const ClubProvider = ({ children }) => {
   const loginClub = (clubData) => {
     setClub(clubData);
   };
-  const logoutClub = () => {
-    setClub(null);
+  const logoutClub = async () => {
+    try {
+      await axios.post("http://localhost:3000/api/logout", {}, { withCredentials: true });
+      setClub(null);
+    } catch (error) {
+      console.error("Failed to logout user:", error);
+    }
   };
   useEffect(() => {
     const fetchClub = async () => {

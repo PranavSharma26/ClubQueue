@@ -15,27 +15,66 @@ export const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const { bio, ...userData } = data;
-      const { firstName, lastName, ...clubData } = data;
+      const { bio, ...userDataRaw } = data;
+      const { firstName, lastName, ...clubDataRaw } = data;
+
+      const userData = {
+        ...userDataRaw,
+        firstName,
+        lastName,
+        isVerified: false,
+      };
+
+      const clubData = {
+        ...clubDataRaw,
+        bio,
+        isVerified: false,
+      };
+
       const endpoint = isUser
         ? "http://localhost:3000/api/signup/user"
         : "http://localhost:3000/api/signup/club";
+
       const response = await axios.post(endpoint, isUser ? userData : clubData);
       console.log("Successfull");
-      navigate("/");
+
+      if(response.status>=400){
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        });
+        return;
+      }
+
+      const expiryTime = Date.now() + 10 * 60 * 1000
+      if(isUser){
+        localStorage.setItem("user",JSON.stringify({data:userData, expiresAt:expiryTime}))
+      }
+      else{
+        localStorage.setItem("club",JSON.stringify({data:clubData, expiresAt:expiryTime}))
+      }
+
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Sign Up Successful",
+        title: "Please Verify Your Email",
         showConfirmButton: false,
         timer: 1000,
         timerProgressBar: true,
       });
+
+      navigate("/verify");
+
     } catch (error) {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: error.response.data.error,
+        title: error.response?.data?.error || 
+        error.response?.data?.message || 'Something went wrong',
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true,
@@ -83,7 +122,7 @@ export const Signup = () => {
             <div className="w-full">
               <input
                 {...register("username", {
-                  required: 'Name Required',
+                  required: "Name Required",
                   minLength: {
                     value: 3,
                     message: "Minimum 3 characters are required",

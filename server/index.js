@@ -4,6 +4,7 @@ import cors from "cors";
 import { dbConnect } from "./db/dbConnect.js";
 import signupRoutes from "./routes/signup.js";
 import signinRoutes from "./routes/signin.js";
+import verifyRoutes from "./utils/sendEmail.js"
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -21,8 +22,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/signup", signupRoutes);
+app.use("/api/verify", verifyRoutes);
 app.use("/api/signin", signinRoutes);
 app.use("/api",authRoutes)
+
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

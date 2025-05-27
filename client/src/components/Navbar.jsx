@@ -35,10 +35,10 @@ export const Navbar = () => {
     navigate("/");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
     navigate("/");
-    if(isUser) logoutUser();
-    else logoutClub();
+    if(isUser) await logoutUser();
+    else await logoutClub();
     setAnchorEl(null);
     Swal.fire({
       position: "center",
