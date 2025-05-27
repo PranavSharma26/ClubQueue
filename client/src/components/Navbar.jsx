@@ -69,8 +69,8 @@ export const Navbar = () => {
 
       {(user || club) ? (
         <>
-          <div className="flex gap-1 items-center rounded-xl">
-            <p className="text-sm text-black tracking-tight normal-case">
+          <div className="flex gap-1 items-center rounded-xl ">
+            <p className="hidden [@media(min-width:500px)]:block text-sm text-black tracking-tight normal-case">
               {user?.username || club?.username}
             </p>
             <Button
