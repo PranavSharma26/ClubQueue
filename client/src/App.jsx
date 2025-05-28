@@ -8,13 +8,28 @@ import UserProtectedRoute from "./context/UserProtectedRoute";
 import { Signup } from "./pages/auth/Signup";
 import ClubProtectedRoute from "./context/ClubProtectedRoute";
 import { Verification } from "./pages/auth/Verification";
+import PublicOnlyRoute from "./context/PublicOnlyRoutes";
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/signin" element={<Signin />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/verify" element={<Verification/>}/>
+      <Route
+        path="/signin"
+        element={
+          <PublicOnlyRoute>
+            <Signin />
+          </PublicOnlyRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicOnlyRoute>
+            <Signup />
+          </PublicOnlyRoute>
+        }
+      />
+      <Route path="/verify" element={<Verification />} />
       <Route
         path="/user/:username"
         element={
