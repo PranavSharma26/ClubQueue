@@ -72,22 +72,3 @@ router.post("/club", async (req, res) => {
 });
 
 export default router;
-
-// try {
-//   let db = await getDB();
-//   const { username, email, bio, password } = req.body;
-//   const email_lower = email.toLowerCase();
-//   if (await isUsernameExist(username, db, "clubs"))
-//     return res.status(400).json({ error: "Clubname Already Exists" });
-//   if (await isEmailExist(email_lower, db, "clubs"))
-//     return res.status(400).json({ error: "Email Already Exist" });
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-
-//   return (await insertClub(username, email_lower, bio, hashedPassword, db))
-//     ? res.status(201).json({ message: "Club Added Successfully" })
-//     : res.status(500).json({ error: "Error Inserting Club" });
-// } catch (err) {
-//   console.log("Error signing up", err);
-//   return res.status(500).json({ error: "Internal Server Error" });
-// }

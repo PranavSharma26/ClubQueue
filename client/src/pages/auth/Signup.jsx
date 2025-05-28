@@ -49,6 +49,9 @@ export const Signup = () => {
         });
         return;
       }
+      
+      localStorage.removeItem("user");
+      localStorage.removeItem("club");
 
       const expiryTime = Date.now() + 10 * 60 * 1000
       if(isUser){
