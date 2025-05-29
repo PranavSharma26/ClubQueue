@@ -5,13 +5,16 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/UserContext.jsx";
 import { ClubProvider } from "./context/ClubContext.jsx";
+import { EventProvider } from "./context/EventContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
         <ClubProvider>
-          <App />
+          <EventProvider>
+            <App />
+          </EventProvider>
         </ClubProvider>
       </UserProvider>
     </BrowserRouter>

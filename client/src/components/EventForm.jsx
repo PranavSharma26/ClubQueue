@@ -2,27 +2,31 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { images } from "../functions/functions.js";
 import { useClubAuth } from "../context/ClubContext.jsx";
-import axios from 'axios';
-import Swal from 'sweetalert2'
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useEventAuth } from "../context/EventContext.jsx";
 
 export const EventForm = ({ onClose }) => {
   const imageOption = images;
   const { club } = useClubAuth();
   const [showImageOptions, setShowImageOptions] = useState(false);
-
+  const { addEvent } = useEventAuth();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
-    watch
+    watch,
   } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      const finalData={...data,club:club.username}
+      const finalData = { ...data, club: club.username };
 
-      const response = await axios.post("http://localhost:3000/api/postEvent",finalData)
+      const response = await axios.post(
+        "http://localhost:3000/api/postEvent",
+        finalData
+      );
 
       Swal.fire({
         position: "center",
@@ -32,6 +36,17 @@ export const EventForm = ({ onClose }) => {
         showConfirmButton: false,
         timer: 1000,
       });
+      const eventData = {
+        name: finalData.name,
+        club: finalData.club,
+        description: finalData.description,
+        imgPath: finalData.imgPath,
+        maxParticipants: finalData.maxParticipants,
+        registrationLink: finalData.registrationLink,
+        location: finalData.location,
+        date: finalData.eventDate,
+      };
+      addEvent(eventData);
       onClose();
     } catch (error) {
       Swal.fire({
@@ -50,8 +65,8 @@ export const EventForm = ({ onClose }) => {
   };
 
   const handleSelectImage = (imgPath) => {
-    setValue("imgPath",imgPath,{shouldValidate:true})
-    setShowImageOptions(false)
+    setValue("imgPath", imgPath, { shouldValidate: true });
+    setShowImageOptions(false);
   };
 
   return (
@@ -112,7 +127,11 @@ export const EventForm = ({ onClose }) => {
               className="w-full p-3 bg-gray-100 rounded-3xl px-4 sm:px-6 text-lg sm:text-xl border-2 border-gray-500 text-start text-gray-500 hover:cursor-pointer"
               onClick={handleImageShow}
             >
-              {watch("imgPath")? (<img src={watch("imgPath")} className="h-20"></img>) :'Choose Image'}
+              {watch("imgPath") ? (
+                <img src={watch("imgPath")} className="h-20"></img>
+              ) : (
+                "Choose Image"
+              )}
             </div>
             {errors.imgPath && (
               <p className="text-red-500">{errors.imgPath.message}</p>
@@ -166,13 +185,18 @@ export const EventForm = ({ onClose }) => {
 
             <input
               type="submit"
+              disabled={isSubmitting}
               value="Post Event"
-              className="w-full p-3 bg-[#EE2B69] rounded-3xl px-6 text-xl border-2 border-black hover:opacity-85 font-bold tracking-wider text-white cursor-pointer mt-2"
+              className={`w-full p-3 bg-[#EE2B69] rounded-3xl px-6 text-xl border-2 border-black hover:opacity-85 font-bold tracking-wider text-white cursor-pointer mt-2 ${
+                isSubmitting
+                  ? "opacity-60 cursor-not-allowed"
+                  : "hover:opacity-85"
+              }`}
             />
 
             {showImageOptions && (
               <div
-                className="fixed w-screen h-screeen inset-0 z-25 flex backdrop-blur-lg justify-center items-center"
+                className="fixed w-screen h-screen inset-0 z-25 flex backdrop-blur-lg justify-center items-center"
                 onClick={() => setShowImageOptions(false)}
               >
                 <div
@@ -183,10 +207,11 @@ export const EventForm = ({ onClose }) => {
                     <div
                       key={img.id}
                       className="w-20 border-1 p-2 hover:scale-115 duration-200"
-                      >
+                    >
                       <img
-                        onClick={()=>handleSelectImage(img.src)}
+                        onClick={() => handleSelectImage(img.src)}
                         src={img.src}
+                        alt="Selected"
                       ></img>
                     </div>
                   ))}

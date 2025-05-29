@@ -3,6 +3,11 @@ export const dateTimeFormat = (s) => {
   return date[2] + "-" + date[1] + "-" + date[0];
 };
 
+export const fetchTime = (s) => {
+  const timePart = s.split("T")[1];
+  return timePart.split(".")[0].split(":").slice(0,2).join(":")
+}
+
 export const images = [
   {
     id: 1,

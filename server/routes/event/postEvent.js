@@ -38,8 +38,24 @@ router.post("/postEvent", async (req, res) => {
 
   } catch (error) {
     console.log("Error Posting Event",error);
-    return res.status(500).json({ error: error.data.response.data });
+    return res.status(500).json({ error: error.data?.response?.data });
   }
 });
 
+router.get("/postEvent", async (req, res) => {
+  try {
+    let db = await getDB();
+    const query=`
+      SELECT *
+      FROM events
+      ORDER BY id
+    `
+    let data = await db.query(query)
+		return res.status(200).json(data[0]);
+
+  } catch (error) {
+    console.log("Error Posting Event",error);
+    return res.status(500).json({ error: error.data?.response?.data });
+  }
+});
 export default router;
