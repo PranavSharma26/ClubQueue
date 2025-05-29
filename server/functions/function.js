@@ -6,6 +6,7 @@ export const isUsernameExist = async (username, db,table) => {
   if (rows.length > 0) return true;
   else return false;
 };
+
 export const isEmailExist = async (email, db, table) => {
   const query = `SELECT * 
       FROM ${table}
@@ -40,6 +41,7 @@ export const insertUser = async (
     return false;
   }
 };
+
 export const insertClub = async (
   username,
   email,
@@ -66,6 +68,7 @@ export const fetchUserData= async (id,db)=>{
     const [user] = await db.query(query,[id]);
     return user[0];
 }
+
 export const fetchClubData= async (id,db)=>{
   const query=`
     SELECT username, email, description, logo, createdAt 
@@ -74,4 +77,29 @@ export const fetchClubData= async (id,db)=>{
     `
     const [club] = await db.query(query,[id]);
     return club[0];
+}
+
+export const isEventUnique = async(name,club,db) => {
+  const query=`
+    SELECT *
+    FROM events
+    WHERE name = ? and club = ?
+  `
+  const [rows] = await db.query(query,[name,club]);
+  if(rows.length>0) return false;
+  else return true;
+}
+
+export const insertEvent = async(name,description,image,club,eventDate,maxParticipants,location,registrationLink,db) => {
+  try {
+    const query=`
+      INSERT INTO events (name,description,image,club,eventDate,maxParticipants,location,registrationLink)
+      VALUES (?,?,?,?,?,?,?,?)
+    `
+    await db.query(query,[name,description,image,club,eventDate,maxParticipants,location,registrationLink]);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }

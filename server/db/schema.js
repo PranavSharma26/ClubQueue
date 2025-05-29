@@ -28,17 +28,17 @@ export const createTables = async (db) => {
     await db.query(`
       CREATE TABLE IF NOT EXISTS events (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(50) UNIQUE,
+        name VARCHAR(50),
         description TEXT,
         image VARCHAR(255),
-        clubId INT,
+        club VARCHAR(20),
         eventDate DATETIME NOT NULL,
         maxParticipants INT,
         location VARCHAR(100),
         registrationLink VARCHAR(200),
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (clubId) REFERENCES clubs(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (club) REFERENCES clubs(username) ON DELETE CASCADE ON UPDATE CASCADE
       )
     `);
   };
