@@ -116,3 +116,11 @@ export const insertEvent = async (
     return false;
   }
 };
+
+export const deleteEvent = async (name,club,db)=>{
+  const query=`
+    DELETE FROM events 
+    WHERE name = ? and club = ? 
+  `
+  await db.query(query,[name,club]);
+}

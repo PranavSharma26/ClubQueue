@@ -18,12 +18,12 @@ const Footer = () => {
         </div>
 
         {/* Navigation Links */}
-        <div className="flex flex-col gap-1">
+        {/* <div className="flex flex-col gap-1">
           <h3 className="font-semibold mb-1">Quick Links</h3>
           <Link to="/" className="hover:text-[#EE2B69]">Home</Link>
-          <Link to="/clubs" className="hover:text-[#EE2B69]">Clubs</Link>
-          <Link to="/about" className="hover:text-[#EE2B69]">About</Link>
-        </div>
+          <Link to="/profile" className="hover:text-[#EE2B69]">Profile</Link>
+          <Link to="/settings" className="hover:text-[#EE2B69]">Settings</Link>
+        </div> */}
 
         {/* Contact */}
         <div className="flex flex-col gap-1">

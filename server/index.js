@@ -6,6 +6,8 @@ import signupRoutes from "./routes/signup.js";
 import signinRoutes from "./routes/signin.js";
 import verifyRoutes from "./utils/sendEmail.js"
 import postEventRoutes from "./routes/event/postEvent.js"
+import deleteEventRoute from "./routes/event/deleteEvent.js"
+import fetchEventRoute from "./routes/club/fetchEvent.js"
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -22,11 +24,19 @@ app.get("/", (req, res) => {
   res.send('Hi this is "/" page');
 });
 
+// COMMON
 app.use("/api/signup", signupRoutes);
 app.use("/api/verify", verifyRoutes);
 app.use("/api/signin", signinRoutes);
 app.use("/api",authRoutes)
+
+// EVENT
+app.use("/api/event", deleteEventRoute)
 app.use("/api",postEventRoutes)
+
+// CLUB
+app.use("/api/club",fetchEventRoute)
+
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

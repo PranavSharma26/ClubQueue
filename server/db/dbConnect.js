@@ -16,7 +16,7 @@ const dbConnect = async () => {
 		})
 
 		await connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_DATABASE}`)
-		console.log('Database Created Successfully or Already Exists')
+
 
 		db = await mysql.createConnection({
 			host:process.env.DB_HOST,
@@ -25,7 +25,6 @@ const dbConnect = async () => {
 			database:process.env.DB_DATABASE
 		})
 		await createTables(db)
-		console.log('Tables Created')
 		return db
   } 
 	catch (error) {
