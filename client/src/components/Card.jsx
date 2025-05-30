@@ -1,9 +1,9 @@
 import React from 'react'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
-import { dateTimeFormat } from '../functions/functions.js';
+import { fetchDate } from '../functions/functions.js';
 export const Card = ({event}) => {
-    let eventImage=event?.image;
+    let eventImage=event?.imgPath;
   return (
     <div className='p-4 w-full flex flex-col border-[1.5px] rounded-lg gap-3 shadow-xl bg-white'>
       <p className='tracking-wide text-lg font-semibold truncate w-full'>
@@ -35,7 +35,7 @@ export const Card = ({event}) => {
 
         <CalendarMonthIcon/>
         <p className='truncate text-right ml-2'>
-          {dateTimeFormat(event.eventDate)}
+          {fetchDate(event.eventDate)}
         </p>
         </div>
       </div>

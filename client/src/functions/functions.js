@@ -1,11 +1,19 @@
-export const dateTimeFormat = (s) => {
+export const fetchDate = (s) => {
   let date = s.split("T")[0].split("-");
   return date[2] + "-" + date[1] + "-" + date[0];
 };
 
 export const fetchTime = (s) => {
+
   const timePart = s.split("T")[1];
-  return timePart.split(".")[0].split(":").slice(0,2).join(":")
+  let hour=timePart.split(":")[0];
+  let minute=timePart.split(":")[1];
+  let ampm="AM"
+  if(hour>12){
+    ampm="PM"
+    hour-=12
+  }
+  return hour + ":" + minute + " " + ampm;
 }
 
 export const images = [

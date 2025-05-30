@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Navbar } from "../../components/Navbar";
 import { useAuth } from "../../context/UserContext";
-import { dateTimeFormat } from "../../functions/functions";
 import { useClubAuth } from "../../context/ClubContext";
 
 export const Profile = () => {
@@ -54,12 +53,6 @@ export const Profile = () => {
             <div className="flex justify-between items-center border-b pb-2">
               <span className="font-medium text-gray-600">Email</span>
               <span className="text-gray-900">{profile.email}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="font-medium text-gray-600">Created At</span>
-              <span className="text-gray-900">
-                {dateTimeFormat(profile.createdAt.toString())}
-              </span>
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import { fetchTime, dateTimeFormat } from '../functions/functions.js'
+import { fetchTime, fetchDate } from '../functions/functions.js'
 
 export const DetailedCard = ({ event, onClose }) => {
   return (
@@ -53,7 +53,7 @@ export const DetailedCard = ({ event, onClose }) => {
         </div>
         <div className="flex items-center gap-2 text-gray-600 text-sm">
           <CalendarMonthOutlinedIcon />
-          <span>{dateTimeFormat(event.eventDate)}</span>
+          <span>{fetchDate(event.eventDate)}</span>
         </div>
         <div className="flex items-center gap-2 text-gray-600 text-sm">
           <AccessTimeOutlinedIcon />

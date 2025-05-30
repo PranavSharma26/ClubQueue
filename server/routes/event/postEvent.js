@@ -26,11 +26,11 @@ router.post("/postEvent", async (req, res) => {
 			name,
       description,
       imgPath,
-			club,
       eventDate,
       maxParticipants,
       location,
       registrationLink,
+			club,
 			db
 		);
 
@@ -38,7 +38,7 @@ router.post("/postEvent", async (req, res) => {
 
   } catch (error) {
     console.log("Error Posting Event",error);
-    return res.status(500).json({ error: error.data?.response?.data });
+    return res.status(500).json({ error: error.message || "Internal Server Error"});
   }
 });
 
@@ -48,14 +48,14 @@ router.get("/postEvent", async (req, res) => {
     const query=`
       SELECT *
       FROM events
-      ORDER BY id
+      ORDER BY id desc
     `
     let data = await db.query(query)
-		return res.status(200).json(data[0]);
+    return res.status(200).json(data[0]);
 
   } catch (error) {
     console.log("Error Posting Event",error);
-    return res.status(500).json({ error: error.data?.response?.data });
+    return res.status(500).json({ error: error.message || "Internal Server Error" });
   }
 });
 export default router;

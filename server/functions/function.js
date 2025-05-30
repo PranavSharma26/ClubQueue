@@ -1,4 +1,4 @@
-export const isUsernameExist = async (username, db,table) => {
+export const isUsernameExist = async (username, db, table) => {
   const query = `SELECT * 
       FROM ${table} 
       WHERE username = ?`;
@@ -42,16 +42,10 @@ export const insertUser = async (
   }
 };
 
-export const insertClub = async (
-  username,
-  email,
-  bio,
-  password,
-  db
-) => {
+export const insertClub = async (username, email, bio, password, db) => {
   try {
     const query = `INSERT INTO clubs (username,email,description,password) VALUES(?,?,?,?)`;
-    await db.query(query, [username, email,bio,password]);
+    await db.query(query, [username, email, bio, password]);
     return true;
   } catch (error) {
     console.log(error);
@@ -59,47 +53,66 @@ export const insertClub = async (
   }
 };
 
-export const fetchUserData= async (id,db)=>{
-  const query=`
+export const fetchUserData = async (id, db) => {
+  const query = `
     SELECT username, email, firstName, lastName, createdAt 
     FROM users
     WHERE id = ?
-    `
-    const [user] = await db.query(query,[id]);
-    return user[0];
-}
+    `;
+  const [user] = await db.query(query, [id]);
+  return user[0];
+};
 
-export const fetchClubData= async (id,db)=>{
-  const query=`
+export const fetchClubData = async (id, db) => {
+  const query = `
     SELECT username, email, description, logo, createdAt 
     FROM clubs
     WHERE id = ?
-    `
-    const [club] = await db.query(query,[id]);
-    return club[0];
-}
+    `;
+  const [club] = await db.query(query, [id]);
+  return club[0];
+};
 
-export const isEventUnique = async(name,club,db) => {
-  const query=`
+export const isEventUnique = async (name, club, db) => {
+  const query = `
     SELECT *
     FROM events
     WHERE name = ? and club = ?
-  `
-  const [rows] = await db.query(query,[name,club]);
-  if(rows.length>0) return false;
+  `;
+  const [rows] = await db.query(query, [name, club]);
+  if (rows.length > 0) return false;
   else return true;
-}
+};
 
-export const insertEvent = async(name,description,image,club,eventDate,maxParticipants,location,registrationLink,db) => {
+export const insertEvent = async (
+  name,
+  description,
+  imgPath,
+  eventDate,
+  maxParticipants,
+  location,
+  registrationLink,
+  club,
+  db
+) => {
   try {
-    const query=`
-      INSERT INTO events (name,description,image,club,eventDate,maxParticipants,location,registrationLink)
+    const query = `
+      INSERT INTO events (name,description,imgPath,eventDate,maxParticipants,location,registrationLink,club)
       VALUES (?,?,?,?,?,?,?,?)
-    `
-    await db.query(query,[name,description,image,club,eventDate,maxParticipants,location,registrationLink]);
+    `;
+    await db.query(query, [
+      name,
+      description,
+      imgPath,
+      eventDate,
+      maxParticipants,
+      location,
+      registrationLink,
+      club,
+    ]);
     return true;
   } catch (error) {
     console.log(error);
     return false;
   }
-}
+};

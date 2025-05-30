@@ -21,8 +21,11 @@ export const EventForm = ({ onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      const finalData = { ...data, club: club.username };
-
+      const finalData = { 
+        ...data, 
+        club: club.username,
+      };
+            
       const response = await axios.post(
         "http://localhost:3000/api/postEvent",
         finalData
@@ -36,15 +39,16 @@ export const EventForm = ({ onClose }) => {
         showConfirmButton: false,
         timer: 1000,
       });
+
       const eventData = {
         name: finalData.name,
-        club: finalData.club,
         description: finalData.description,
         imgPath: finalData.imgPath,
+        eventDate: finalData.eventDate,
         maxParticipants: finalData.maxParticipants,
-        registrationLink: finalData.registrationLink,
         location: finalData.location,
-        date: finalData.eventDate,
+        registrationLink: finalData.registrationLink,
+        club: finalData.club,
       };
       addEvent(eventData);
       onClose();

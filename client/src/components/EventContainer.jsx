@@ -8,25 +8,25 @@ import { useEventAuth } from "../context/EventContext";
 export const EventContainer = () => {
   const { club } = useClubAuth();
   const isClub = !!club;
-	const [showForm, setShowForm]=useState(false);
-  const [showCard, setShowCard] = useState(false)
-  const {event} = useEventAuth()
-  const [selectedEvent, setSelectedEvent] = useState([])
+  const [showForm, setShowForm] = useState(false);
+  const [showCard, setShowCard] = useState(false);
+  const { event } = useEventAuth();
+  const [selectedEvent, setSelectedEvent] = useState([]);
   const handleShowForm = () => {
-		setShowForm(true);
-	};
+    setShowForm(true);
+  };
   const handleCloseForm = () => {
-		setShowForm(false);
-	};
+    setShowForm(false);
+  };
 
-  const handleShowCard=(e)=>{
-    setSelectedEvent(e)
+  const handleShowCard = (e) => {
+    setSelectedEvent(e);
     setShowCard(true);
-  }
-  
-  const handleCloseCard=()=>{
+  };
+
+  const handleCloseCard = () => {
     setShowCard(false);
-  }
+  };
 
   return (
     <div className="flex flex-col p-5 lg:px-10 gap-5">
@@ -42,30 +42,41 @@ export const EventContainer = () => {
         )}
       </div>
 
-      <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
-  {event.map((e) => (
-    <div
-      key={e.id}
-      className="w-full max-w-[500px]" 
-      onClick={()=>handleShowCard(e)}
-    >
-      <Card event={e} />
-    </div>
-  ))}
-</div>
+      {event.length > 0 ? (
+        <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
+          {event.map((e) => (
+            <div
+              key={e.name}
+              className="w-full max-w-[500px]"
+              onClick={() => handleShowCard(e)}
+            >
+              <Card event={e} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center">
+          No Events
+        </div>
+      )}
 
-      
       {showForm && (
-        <div className="fixed inset-0 flex w-screen h-screen justify-center z-50 items-center backdrop-blur-lg bg-black/10" onClick={handleCloseForm}>
-          <div onClick={(e)=>e.stopPropagation()}>
-            <EventForm onClose={handleCloseForm}/>
+        <div
+          className="fixed inset-0 flex w-screen h-screen justify-center z-50 items-center backdrop-blur-lg bg-black/10"
+          onClick={handleCloseForm}
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <EventForm onClose={handleCloseForm} />
           </div>
         </div>
-      ) }
+      )}
       {showCard && (
-        <div className="fixed inset-0 flex w-screen h-screen justify-center items-center z-50 backdrop-blur-lg bg-black/10" onClick={handleCloseCard}>
-          <div onClick={(e)=>e.stopPropagation()}>
-            <DetailedCard event={selectedEvent} onClose={handleCloseCard}/>
+        <div
+          className="fixed inset-0 flex w-screen h-screen justify-center items-center z-50 backdrop-blur-lg bg-black/10"
+          onClick={handleCloseCard}
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <DetailedCard event={selectedEvent} onClose={handleCloseCard} />
           </div>
         </div>
       )}

@@ -8,34 +8,33 @@ export const EventProvider = ({ children }) => {
   const addEvent = (data) => {
     const {
       name,
-      club,
       description,
 			imgPath,
+      eventDate,
       maxParticipants,
-      registrationLink,
       location,
-      date,
+      registrationLink,
+      club,
     } = data;
     const newEvent = {
-      id: Date.now(),
-      name,
-      club,
-      description,
-			imgPath,
-      maxParticipants,
-      registrationLink,
-      location,
-      date,
+      name:name,
+      description: description,
+			imgPath: imgPath,
+      eventDate: eventDate,
+      maxParticipants: maxParticipants,
+      location: location,
+      registrationLink: registrationLink,
+      club: club,
     };
 		setEvent((prevEvent)=>[...prevEvent,newEvent]);
   };
 	useEffect(()=>{
-		const fetchEvents= async()=>{
+    const fetchEvents= async()=>{
 			try {
-				const res = await axios.get('http://localhost:3000/api/postEvent',{withCredentials:true})
+				const res = await axios.get('http://localhost:3000/api/postEvent')
 				setEvent(res.data)
 			} catch (error) {
-				console.log("Error Fetching Events", err)
+				console.log("Error Fetching Events", error)
 				setEvent(null)
 			}
 		}
