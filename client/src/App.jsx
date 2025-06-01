@@ -9,6 +9,7 @@ import { Signup } from "./pages/auth/Signup";
 import ClubProtectedRoute from "./context/ClubProtectedRoute";
 import { Verification } from "./pages/auth/Verification";
 import PublicOnlyRoute from "./context/PublicOnlyRoutes";
+import { ClubDashboard } from "./pages/club/Dashboard";
 function App() {
   return (
     <Routes>
@@ -59,6 +60,14 @@ function App() {
         element={
           <ClubProtectedRoute>
             <UserSettings />
+          </ClubProtectedRoute>
+        }
+      />
+      <Route
+        path="/club/dashboard"
+        element={
+          <ClubProtectedRoute>
+            <ClubDashboard />
           </ClubProtectedRoute>
         }
       />

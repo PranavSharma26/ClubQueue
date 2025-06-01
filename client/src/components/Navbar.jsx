@@ -55,6 +55,10 @@ export const Navbar = () => {
     else navigate(`/club/${encodeURIComponent(club.username)}`);
   };
 
+  const handleDashboard = () => {
+    navigate(`/club/dashboard`);
+  };
+
   const handleSettings = () => {
     if (isUser) navigate("/user/settings");
     else navigate("/club/settings");
@@ -89,6 +93,7 @@ export const Navbar = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleProfile}>Profile</MenuItem>
+              { !isUser && <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>}
               <MenuItem onClick={handleSettings}>Settings</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>

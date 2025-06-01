@@ -8,52 +8,38 @@ export const Profile = () => {
   const { club } = useClubAuth();
 
   const profile = user || club;
+  const isClub = !!club;
 
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <div className="w-full max-w-md bg-white border-2 border-gray-200 rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center flex justify-center">
-            <p>{!!user ? "User" : "Club"}</p>
-            <p className="text-[#EE2B69] ml-1"> Profile</p>
-          </h2>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center border-b pb-2">
-              <span className="font-medium text-gray-600">Username</span>
-              <span className="text-gray-900">{profile.username}</span>
+      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
+        <h1 className="text-3xl font-bold mb-4 text-center">
+          {isClub ? "Club Profile" : "User Profile"}
+        </h1>
+
+        <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+          <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-semibold text-gray-500">
+            ?
+          </div>
+
+          <div className="flex-1 space-y-3">
+            <div>
+              <p className="text-gray-500">Name</p>
+              <p className="text-lg font-medium">{profile?.username}</p>
             </div>
-            {!!club ? (
-              <>
-                <div className="border-b pb-2">
-                  <span className="font-medium text-gray-600 block mb-1">
-                    Description
-                  </span>
-                  <p className="text-gray-900 whitespace-pre-wrap">
-                    {club.description || "-"}
-                  </p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span className="font-medium text-gray-600">First Name</span>
-                  <span className="text-gray-900">
-                    {user.firstName ? user.firstName : "-"}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span className="font-medium text-gray-600">Last Name</span>
-                  <span className="text-gray-900">
-                    {user.lastName ? user.lastName : "-"}
-                  </span>
-                </div>
-              </>
+
+            <div>
+              <p className="text-gray-500">Email</p>
+              <p className="text-lg font-medium">{profile?.email}</p>
+            </div>
+
+            {isClub && (
+              <div>
+                <p className="text-gray-500">Club Description</p>
+                <p className="text-lg font-medium">{club?.description || "No description provided."}</p>
+              </div>
             )}
-            <div className="flex justify-between items-center border-b pb-2">
-              <span className="font-medium text-gray-600">Email</span>
-              <span className="text-gray-900">{profile.email}</span>
-            </div>
           </div>
         </div>
       </div>
