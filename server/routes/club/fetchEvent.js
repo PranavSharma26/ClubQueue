@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/fetchEvent', async (req,res)=>{
     try {
         let db = await getDB();
-        const {club}=req.body
+        const {club}=req.query
         if(!club) return res.status(400).json({message: "Provide both eventname and clubname"})
         const query = `
             SELECT * 

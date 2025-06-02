@@ -31,7 +31,7 @@ export const Signin = () => {
       const meResponse = await axios.get('http://localhost:3000/api/me',{withCredentials: true})
 
       if(meResponse.data.role==="user") loginUser(meResponse.data.data);
-      else if(meResponse.data.role==="club") loginClub(meResponse.data.data);
+      else if(meResponse.data.role==="club") await loginClub(meResponse.data.data);
 
       navigate("/");
       Swal.fire({

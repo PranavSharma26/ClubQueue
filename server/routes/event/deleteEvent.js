@@ -7,7 +7,7 @@ const router = express.Router()
 router.delete('/deleteEvent', async (req,res)=>{
     try {
         let db = await getDB();
-        const {name, club}=req.body
+        const {name, club}=req.query
         if(!name || !club) return res.status(400).json({message: "Provide both eventname and clubname"})
         deleteEvent(name,club,db)
         return res.status(200).json({message: "Event Deleted"})

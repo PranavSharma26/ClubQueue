@@ -1,7 +1,7 @@
 import React from 'react'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
-import { fetchDate } from '../functions/functions.js';
+import { fetchDate } from '../../functions/functions.js';
 export const Card = ({event}) => {
     let eventImage=event?.imgPath;
   return (

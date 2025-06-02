@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Card } from "./Card";
+import { Card } from "./card/Card";
 import { useClubAuth } from "../context/ClubContext";
 import { EventForm } from "./EventForm";
-import { DetailedCard } from "./DetailedCard";
+import { DetailedCard } from "./card/DetailedCard";
 import { useEventAuth } from "../context/EventContext";
 
 export const EventContainer = () => {

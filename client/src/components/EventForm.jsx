@@ -25,7 +25,7 @@ export const EventForm = ({ onClose }) => {
         ...data, 
         club: club.username,
       };
-            
+      console.log(finalData)
       const response = await axios.post(
         "http://localhost:3000/api/postEvent",
         finalData
