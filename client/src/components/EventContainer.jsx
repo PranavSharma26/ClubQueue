@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "./card/Card";
 import { useClubAuth } from "../context/ClubContext";
 import { EventForm } from "./EventForm";
@@ -10,7 +10,7 @@ export const EventContainer = () => {
   const isClub = !!club;
   const [showForm, setShowForm] = useState(false);
   const [showCard, setShowCard] = useState(false);
-  const { event } = useEventAuth();
+  const { event, fetchEvents } = useEventAuth();
   const [selectedEvent, setSelectedEvent] = useState([]);
   const handleShowForm = () => {
     setShowForm(true);
@@ -27,6 +27,10 @@ export const EventContainer = () => {
   const handleCloseCard = () => {
     setShowCard(false);
   };
+
+  useEffect(()=>{
+    fetchEvents()
+  },[])
 
   return (
     <div className="flex flex-col p-5 lg:px-10 gap-5">

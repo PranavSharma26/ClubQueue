@@ -117,6 +117,42 @@ export const insertEvent = async (
   }
 };
 
+export const updateEvent = async (
+  oldName,
+  name,
+  description,
+  imgPath,
+  eventDate,
+  maxParticipants,
+  location,
+  registrationLink,
+  club,
+  db
+) => {
+  try {
+    const query = `
+      UPDATE events 
+      SET name = ?, description = ?,imgPath = ?,eventDate = ?, maxParticipants = ?, location = ?, registrationLink = ?
+      WHERE name = ? and club = ?
+    `;
+    await db.query(query, [
+      name,
+      description,
+      imgPath,
+      eventDate,
+      maxParticipants,
+      location,
+      registrationLink,
+      oldName,
+      club
+    ]);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const deleteEvent = async (name,club,db)=>{
   const query=`
     DELETE FROM events 

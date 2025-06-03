@@ -7,7 +7,7 @@ export const EventProvider = ({ children }) => {
   
   const fetchEvents= async()=>{
     try {
-      const res = await axios.get('http://localhost:3000/api/postEvent')
+      const res = await axios.get('http://localhost:3000/api/event/postEvent')
       setEvent(res.data)
     } catch (error) {
       console.log("Error Fetching Events", error)
@@ -53,7 +53,7 @@ export const EventProvider = ({ children }) => {
 		fetchEvents();
 	},[])
   return (
-    <EventContext.Provider value={{ event, addEvent, deleteEvent }}>
+    <EventContext.Provider value={{ event, addEvent, deleteEvent, fetchEvents }}>
       {children}
     </EventContext.Provider>
   );

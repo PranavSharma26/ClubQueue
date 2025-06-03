@@ -8,6 +8,7 @@ import verifyRoutes from "./utils/sendEmail.js"
 import postEventRoutes from "./routes/event/postEvent.js"
 import deleteEventRoute from "./routes/event/deleteEvent.js"
 import fetchEventRoute from "./routes/club/fetchEvent.js"
+import editEventRoute from "./routes/event/editEvent.js"
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -32,7 +33,8 @@ app.use("/api",authRoutes)
 
 // EVENT
 app.use("/api/event", deleteEventRoute)
-app.use("/api",postEventRoutes)
+app.use("/api/event",postEventRoutes)
+app.use("/api/event",editEventRoute)
 
 // CLUB
 app.use("/api/club",fetchEventRoute)

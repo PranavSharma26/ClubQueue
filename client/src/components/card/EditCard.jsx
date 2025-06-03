@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { images } from "../functions/functions.js";
-import { useClubAuth } from "../context/ClubContext.jsx";
+import { images } from "../../functions/functions.js";
+import { useClubAuth } from "../../context/ClubContext.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEventAuth } from "../context/EventContext.jsx";
 
-export const EventForm = ({ onClose }) => {
+export const EditCard = ({ event,onClose }) => {
   const imageOption = images;
-  const { club } = useClubAuth();
+  const { club, fetchClubEvents } = useClubAuth();
   const [showImageOptions, setShowImageOptions] = useState(false);
-  const { addEvent } = useEventAuth();
+  const oldName=event.name
   const {
     register,
     handleSubmit,
@@ -21,36 +20,24 @@ export const EventForm = ({ onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      const finalData = { 
+      const finalData = {
+        oldName: oldName, 
         ...data, 
         club: club.username,
       };
-      console.log(finalData)
-      const response = await axios.post(
-        "http://localhost:3000/api/event/postEvent",
+      const response = await axios.put(
+        "http://localhost:3000/api/event/editEvent",
         finalData
       );
-
+      await fetchClubEvents(club.username)
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Event Added Successfully",
+        title: "Event Updated Successfully",
         timerProgressBar: true,
         showConfirmButton: false,
         timer: 1000,
       });
-
-      const eventData = {
-        name: finalData.name,
-        description: finalData.description,
-        imgPath: finalData.imgPath,
-        eventDate: finalData.eventDate,
-        maxParticipants: finalData.maxParticipants,
-        location: finalData.location,
-        registrationLink: finalData.registrationLink,
-        club: finalData.club,
-      };
-      addEvent(eventData);
       onClose();
     } catch (error) {
       Swal.fire({
@@ -63,6 +50,18 @@ export const EventForm = ({ onClose }) => {
       });
     }
   };
+
+	useEffect(()=>{
+		if(event){
+			setValue("name", event.name);
+    setValue("description", event.description);
+    setValue("imgPath", event.imgPath);
+    setValue("eventDate", event.eventDate.slice(0, 16));
+    setValue("maxParticipants", event.maxParticipants);
+    setValue("location", event.location);
+    setValue("registrationLink", event.registrationLink);
+		}
+	},[event,setValue])
 
   const handleImageShow = () => {
     setShowImageOptions(true);
@@ -85,7 +84,7 @@ export const EventForm = ({ onClose }) => {
         </button>
 
         <div className="flex mb-4 justify-center">
-          <p className="text-2xl sm:text-4xl font-extrabold">Post</p>
+          <p className="text-2xl sm:text-4xl font-extrabold">Edit</p>
           <p className="text-2xl sm:text-4xl font-extrabold ml-2 text-[#EE2B69]">
             Event
           </p>
@@ -190,7 +189,7 @@ export const EventForm = ({ onClose }) => {
             <input
               type="submit"
               disabled={isSubmitting}
-              value="Post Event"
+              value="Edit Event"
               className={`w-full p-3 bg-[#EE2B69] rounded-3xl px-6 text-xl border-2 border-black hover:opacity-85 font-bold tracking-wider text-white cursor-pointer mt-2 ${
                 isSubmitting
                   ? "opacity-60 cursor-not-allowed"
