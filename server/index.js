@@ -9,6 +9,8 @@ import postEventRoutes from "./routes/event/postEvent.js"
 import deleteEventRoute from "./routes/event/deleteEvent.js"
 import fetchEventRoute from "./routes/club/fetchEvent.js"
 import editEventRoute from "./routes/event/editEvent.js"
+import likeUnlikeRoute from './routes/user/likeUnlikeEvents.js'
+import fetchLikedEventRoute from './routes/user/fetchLikedEvents.js'
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -29,15 +31,19 @@ app.get("/", (req, res) => {
 app.use("/api/signup", signupRoutes);
 app.use("/api/verify", verifyRoutes);
 app.use("/api/signin", signinRoutes);
-app.use("/api",authRoutes)
+app.use("/api",authRoutes);
+
+// USER
+app.use("/api/user",likeUnlikeRoute);
+app.use('/api/user',fetchLikedEventRoute);
 
 // EVENT
-app.use("/api/event", deleteEventRoute)
-app.use("/api/event",postEventRoutes)
-app.use("/api/event",editEventRoute)
+app.use("/api/event", deleteEventRoute);
+app.use("/api/event",postEventRoutes);
+app.use("/api/event",editEventRoute);
 
 // CLUB
-app.use("/api/club",fetchEventRoute)
+app.use("/api/club",fetchEventRoute);
 
 
 app.listen(port, () => {

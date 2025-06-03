@@ -55,7 +55,7 @@ export const insertClub = async (username, email, bio, password, db) => {
 
 export const fetchUserData = async (id, db) => {
   const query = `
-    SELECT username, email, firstName, lastName, createdAt 
+    SELECT id, username, email, firstName, lastName, createdAt 
     FROM users
     WHERE id = ?
     `;

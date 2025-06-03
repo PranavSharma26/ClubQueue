@@ -47,7 +47,7 @@ export const EventContainer = () => {
       </div>
 
       {event.length > 0 ? (
-        <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
+        <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
           {event.map((e) => (
             <div
               key={e.name}

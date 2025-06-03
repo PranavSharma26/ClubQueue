@@ -128,7 +128,7 @@ export const ClubDashboard = () => {
                       component="th"
                       scope="row"
                       onClick={() => handleShowDetailedCard(row)}
-                      className="hover:cursor-pointer"
+                      className="hover:cursor-pointe"
                       sx={{ "&:hover": { color: "blue" } }}
                     >
                       {row.name}

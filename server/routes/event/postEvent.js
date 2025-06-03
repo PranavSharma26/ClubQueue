@@ -22,7 +22,7 @@ router.post("/postEvent", async (req, res) => {
       return res.status(400).json({ error: "Event Exist" });
     }
 
-		await insertEvent(
+		if(await insertEvent(
 			name,
       description,
       imgPath,
@@ -32,9 +32,10 @@ router.post("/postEvent", async (req, res) => {
       registrationLink,
 			club,
 			db
-		);
-
-		return res.status(201).json({message:"Event Added Successfully"})
+		)){
+      return res.status(201).json({message:"Event Added Successfully"})
+    }
+    return res.status(400).json({message:"Error inserting the event"})
 
   } catch (error) {
     console.log("Error Posting Event",error);

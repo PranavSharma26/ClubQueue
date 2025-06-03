@@ -1,5 +1,5 @@
 export const createTables = async (db) => {
-    await db.query(`
+  await db.query(`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(20) UNIQUE,
@@ -11,8 +11,8 @@ export const createTables = async (db) => {
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
-  
-    await db.query(`
+
+  await db.query(`
       CREATE TABLE IF NOT EXISTS clubs (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(20) UNIQUE,
@@ -24,8 +24,8 @@ export const createTables = async (db) => {
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
-  
-    await db.query(`
+
+  await db.query(`
       CREATE TABLE IF NOT EXISTS events (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(50),
@@ -41,10 +41,16 @@ export const createTables = async (db) => {
         FOREIGN KEY (club) REFERENCES clubs(username) ON DELETE CASCADE ON UPDATE CASCADE
       )
     `);
-  };
-  
-export const deleteTables=async (db)=>{
-  await db.query(`DROP TABLE IF EXISTS users`);
-  await db.query(`DROP TABLE IF EXISTS clubs`);
-  await db.query(`DROP TABLE IF EXISTS events`);
-}
+
+  await db.query(`
+        CREATE TABLE IF NOT EXISTS liked_events(
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          user_id INT,
+          event_id INT,
+          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+          FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+          UNIQUE KEY unique_like (user_id,event_id)
+        )
+    `);
+};

@@ -30,33 +30,44 @@ export const EventForm = ({ onClose }) => {
         "http://localhost:3000/api/event/postEvent",
         finalData
       );
-
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Event Added Successfully",
-        timerProgressBar: true,
-        showConfirmButton: false,
-        timer: 1000,
-      });
-
-      const eventData = {
-        name: finalData.name,
-        description: finalData.description,
-        imgPath: finalData.imgPath,
-        eventDate: finalData.eventDate,
-        maxParticipants: finalData.maxParticipants,
-        location: finalData.location,
-        registrationLink: finalData.registrationLink,
-        club: finalData.club,
-      };
-      addEvent(eventData);
+      if(response.status<400){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Event Added Successfully",
+          timerProgressBar: true,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        
+        const eventData = {
+          name: finalData.name,
+          description: finalData.description,
+          imgPath: finalData.imgPath,
+          eventDate: finalData.eventDate,
+          maxParticipants: finalData.maxParticipants,
+          location: finalData.location,
+          registrationLink: finalData.registrationLink,
+          club: finalData.club,
+        };
+        addEvent(eventData);
+      }
+      else{
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error posting event",
+          timerProgressBar: true,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
       onClose();
     } catch (error) {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: error.response.data.error,
+        title: error.response?.data?.error || "Invalid Fields",
         timerProgressBar: true,
         showConfirmButton: false,
         timer: 1000,
