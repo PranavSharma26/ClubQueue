@@ -19,7 +19,6 @@ export const Card = ({ event }) => {
     const method = isLiked ? "delete" : "post";
 
     try {
-      console.log({data: { user_id: user.id, event_id: event.id }})
       await axios({
         method,
         url: `http://localhost:3000${url}`,

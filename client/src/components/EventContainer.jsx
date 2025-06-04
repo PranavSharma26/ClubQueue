@@ -46,11 +46,11 @@ export const EventContainer = () => {
         )}
       </div>
 
-      {event.length > 0 ? (
+      {event?.length > 0 ? (
         <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
           {event.map((e) => (
             <div
-              key={e.name}
+              key={e.id}
               className="w-full max-w-[500px]"
               onClick={() => handleShowCard(e)}
             >

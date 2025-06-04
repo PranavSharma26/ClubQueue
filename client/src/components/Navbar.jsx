@@ -59,6 +59,10 @@ export const Navbar = () => {
     navigate(`/club/dashboard`);
   };
 
+  const handleLiked = () => {
+    navigate(`/user/liked`);
+  };
+
   const handleSettings = () => {
     if (isUser) navigate("/user/settings");
     else navigate("/club/settings");
@@ -94,7 +98,12 @@ export const Navbar = () => {
             >
               <MenuItem onClick={handleProfile}>Profile</MenuItem>
               { !isUser && <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>}
-              <MenuItem onClick={handleSettings}>Settings</MenuItem>
+              {isUser ?
+              (
+                <MenuItem onClick={handleLiked}>Liked</MenuItem>
+              ):(
+                <MenuItem onClick={handleSettings}>Settings</MenuItem>
+                )}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

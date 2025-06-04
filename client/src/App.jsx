@@ -10,6 +10,7 @@ import ClubProtectedRoute from "./context/ClubProtectedRoute";
 import { Verification } from "./pages/auth/Verification";
 import PublicOnlyRoute from "./context/PublicOnlyRoutes";
 import { ClubDashboard } from "./pages/club/Dashboard";
+import { LikedEventsPage } from "./pages/user/LikedEventsPage";
 function App() {
   return (
     <Routes>
@@ -40,19 +41,19 @@ function App() {
         }
       />
       <Route
+        path="/user/liked"
+        element={
+          <UserProtectedRoute>
+            <LikedEventsPage />
+          </UserProtectedRoute>
+        }
+      />
+      <Route
         path="/club/:username"
         element={
           <ClubProtectedRoute>
             <Profile />
           </ClubProtectedRoute>
-        }
-      />
-      <Route
-        path="user/settings"
-        element={
-          <UserProtectedRoute>
-            <UserSettings />
-          </UserProtectedRoute>
         }
       />
       <Route

@@ -10,8 +10,7 @@ export const EventProvider = ({ children }) => {
       const res = await axios.get('http://localhost:3000/api/event/postEvent')
       setEvent(res.data)
     } catch (error) {
-      console.log("Error Fetching Events", error)
-      setEvent(null)
+      setEvent([])
     }
   }
   
