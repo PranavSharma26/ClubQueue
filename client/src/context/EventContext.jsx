@@ -4,7 +4,7 @@ const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
   const [event, setEvent] = useState([]);
-  
+
   const fetchEvents= async()=>{
     try {
       const res = await axios.get('http://localhost:3000/api/event/postEvent')

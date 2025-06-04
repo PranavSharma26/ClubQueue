@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/UserContext.jsx";
 import { ClubProvider } from "./context/ClubContext.jsx";
 import { EventProvider } from "./context/EventContext.jsx";
+import { SearchProvider } from "./context/searchContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById("root")).render(
       <UserProvider>
         <ClubProvider>
           <EventProvider>
-            <App />
+            <SearchProvider>
+              <App />
+            </SearchProvider>
           </EventProvider>
         </ClubProvider>
       </UserProvider>

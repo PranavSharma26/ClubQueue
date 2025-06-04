@@ -69,7 +69,7 @@ export const Card = ({ event }) => {
         {event.description}
       </p>
 
-      <div className="w-full flex justify-between text-[18px] text-gray-600">
+      <div className="w-full flex justify-between text-[15px] text-gray-600">
         <p className="truncate max-w-[50%]">{event.club}</p>
         <div className="flex items-center">
           <CalendarMonthIcon />
