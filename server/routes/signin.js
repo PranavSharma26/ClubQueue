@@ -63,14 +63,14 @@ router.post("/club", async (req, res) => {
           role:"club"
         },
         process.env.JWT_SECRET,
-        {expiresIn: '1h'}
+        {expiresIn: '1d'}
       );
 
       res.cookie('token',token,{
 				httpOnly: true,
 				secure: process.env.NODE_ENV === 'production',
 				sameSite: 'lax',
-				maxAge: 36000000,
+				maxAge: 86400000,  // 1000*60*60*24
 			})
 
       return res.status(200).json({message:"Logged In Successfully"});

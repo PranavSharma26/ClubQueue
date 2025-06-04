@@ -50,12 +50,12 @@ export const EventContainer = () => {
 
 
   return (
-    <div className="flex flex-col p-5 lg:px-10 gap-5">
+    <div className="flex flex-col p-5 pb-10 lg:px-10 gap-5 bg-gradient-to-br from-pink-100 to-yellow-50">
       <div className="font-bold text-xl tracking-wide font-stretch-110% flex justify-between items-center">
         <p>All Events</p>
         {isClub && (
           <button
-            className="bg-black text-white px-4 p-2 rounded-xl hover:bg-yellow-400"
+            className="bg-black text-white px-4 p-2 rounded-xl hover:bg-yellow-400 hover:cursor-pointer"
             onClick={handleShowForm}
           >
             Post Event

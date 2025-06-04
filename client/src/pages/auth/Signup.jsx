@@ -38,7 +38,7 @@ export const Signup = () => {
       const response = await axios.post(endpoint, isUser ? userData : clubData);
       console.log("Successfull");
 
-      if(response.status>=400){
+      if (response.status >= 400) {
         Swal.fire({
           position: "center",
           icon: "error",
@@ -49,16 +49,21 @@ export const Signup = () => {
         });
         return;
       }
-      
+
       localStorage.removeItem("user");
       localStorage.removeItem("club");
 
-      const expiryTime = Date.now() + 10 * 60 * 1000
-      if(isUser){
-        localStorage.setItem("user",JSON.stringify({data:userData, expiresAt:expiryTime}))
-      }
-      else{
-        localStorage.setItem("club",JSON.stringify({data:clubData, expiresAt:expiryTime}))
+      const expiryTime = Date.now() + 10 * 60 * 1000;
+      if (isUser) {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ data: userData, expiresAt: expiryTime })
+        );
+      } else {
+        localStorage.setItem(
+          "club",
+          JSON.stringify({ data: clubData, expiresAt: expiryTime })
+        );
       }
 
       Swal.fire({
@@ -71,13 +76,14 @@ export const Signup = () => {
       });
 
       navigate("/verify");
-
     } catch (error) {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: error.response?.data?.error || 
-        error.response?.data?.message || 'Something went wrong',
+        title:
+          error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Something went wrong",
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true,
@@ -89,40 +95,40 @@ export const Signup = () => {
 
   return (
     <>
-      <div className="flex p-3 justify-center items-center rounded-lg ">
-        <button
-          className={`border-black border-1 p-2 px-4 rounded-l-xl text-4xl ${
-            isUser ? "bg-amber-300" : "bg-gray-200 hover:bg-amber-200"
-          }`}
-          onClick={handleToggle}
-        >
-          User
-        </button>
-        <button
-          className={`border-black border-1 px-4 p-2 text-4xl rounded-r-xl ${
-            isUser ? "hover:bg-amber-200" : "bg-amber-300"
-          }`}
-          onClick={handleToggle}
-        >
-          Club
-        </button>
-      </div>
+      <div className="flex flex-col items-center justify-center px-4 py-10 min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100">
+        <div className="flex mb-8 rounded-xl overflow-hidden border border-black shadow-md">
+          <button
+            className={`px-6 py-2 text-xl sm:text-2xl font-semibold transition ${
+              isUser
+                ? "bg-amber-300 text-black"
+                : "bg-gray-200 hover:bg-amber-200"
+            }`}
+            onClick={handleToggle}
+          >
+            User
+          </button>
+          <button
+            className={`px-6 py-2 text-xl sm:text-2xl font-semibold transition ${
+              isUser ? "hover:bg-amber-200" : "bg-amber-300 text-black"
+            }`}
+            onClick={handleToggle}
+          >
+            Club
+          </button>
+        </div>
 
-      <div className="flex items-center justify-center px-2">
-        <div className="border-2 rounded-xl flex flex-col gap-10 p-5 w-screen sm:w-120 items-center px-10 shadow-xl">
-          <div className="flex">
-            <p className="text-5xl font-extrabold mr-2 text-amber-300">
-              {isUser ? "User" : "Club"}
-            </p>
-            <p className="text-5xl font-extrabold">Sign</p>
-            <p className="text-5xl text-[#EE2B69] font-extrabold">up</p>
+        <div className="w-full max-w-md sm:max-w-xl bg-white border-2 border-gray-300 rounded-3xl shadow-2xl p-6 sm:p-10 flex flex-col gap-6">
+          <div className="flex justify-center text-4xl sm:text-5xl font-extrabold">
+            <p className="text-amber-400 mr-2">{isUser ? "User" : "Club"}</p>
+            <p>Sign</p>
+            <p className="text-[#EE2B69] ml-1">up</p>
           </div>
 
           <form
-            className="w-full flex flex-col gap-5"
+            className="flex flex-col gap-5"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="w-full">
+            <div>
               <input
                 {...register("username", {
                   required: "Name Required",
@@ -142,7 +148,7 @@ export const Signup = () => {
                 })}
                 type="text"
                 placeholder={`Enter ${isUser ? "Username" : "Clubname"}`}
-                className="w-full p-3 bg-gray-100 rounded-3xl px-6 text-xl border-2 border-gray-500"
+                className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.username && (
                 <p className="text-sm text-red-500 mt-1">
@@ -151,7 +157,7 @@ export const Signup = () => {
               )}
             </div>
 
-            <div className="w-full">
+            <div>
               <input
                 {...register("email", {
                   required: "Email is required",
@@ -162,7 +168,7 @@ export const Signup = () => {
                 })}
                 type="email"
                 placeholder="Enter Email"
-                className="w-full p-3 bg-gray-100 rounded-3xl px-6 text-xl border-2 border-gray-500"
+                className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.email && (
                 <p className="text-sm text-red-500 mt-1">
@@ -172,35 +178,31 @@ export const Signup = () => {
             </div>
 
             {!isUser ? (
-              <>
-                <div className="w-full px-1">
-                  <textarea
-                    {...register("bio", {
-                      maxLength: {
-                        value: 200,
-                        message: "Maximum 200 characters allowed",
-                      },
-                    })}
-                    className="border-1 text-xl w-full p-1 px-4 rounded-2xl bg-gray-100"
-                    placeholder="Enter Club Bio"
-                  />
-                  {errors.bio && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.bio.message}
-                    </p>
-                  )}
-                </div>
-              </>
+              <div>
+                <textarea
+                  {...register("bio", {
+                    maxLength: {
+                      value: 200,
+                      message: "Maximum 200 characters allowed",
+                    },
+                  })}
+                  className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  placeholder="Enter Club Bio"
+                />
+                {errors.bio && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.bio.message}
+                  </p>
+                )}
+              </div>
             ) : (
               <>
-                <div className="w-full">
+                <div>
                   <input
-                    {...register("firstName", {
-                      maxLength: 20,
-                    })}
+                    {...register("firstName", { maxLength: 20 })}
                     type="text"
                     placeholder="Enter First Name"
-                    className="w-full p-3 bg-gray-100 rounded-3xl px-6 text-xl border-2 border-gray-500"
+                    className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                   {errors.firstName && (
                     <p className="text-sm text-red-500 mt-1">
@@ -208,15 +210,12 @@ export const Signup = () => {
                     </p>
                   )}
                 </div>
-
-                <div className="w-full">
+                <div>
                   <input
-                    {...register("lastName", {
-                      maxLength: 20,
-                    })}
+                    {...register("lastName", { maxLength: 20 })}
                     type="text"
                     placeholder="Enter Last Name"
-                    className="w-full p-3 bg-gray-100 rounded-3xl px-6 text-xl border-2 border-gray-500"
+                    className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                   {errors.lastName && (
                     <p className="text-sm text-red-500 mt-1">
@@ -227,14 +226,12 @@ export const Signup = () => {
               </>
             )}
 
-            <div className="w-full">
+            <div>
               <input
-                {...register("password", {
-                  required: "Password is required",
-                })}
+                {...register("password", { required: "Password is required" })}
                 type="password"
                 placeholder="Enter Password"
-                className="w-full p-3 bg-gray-100 rounded-3xl px-6 text-xl border-2 border-gray-500"
+                className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.password && (
                 <p className="text-sm text-red-500 mt-1">
@@ -247,15 +244,15 @@ export const Signup = () => {
               type="submit"
               disabled={isSubmitting}
               value={isSubmitting ? "Signing up..." : "Signup"}
-              className="w-full p-3 bg-[#EE2B69] rounded-3xl px-6 text-xl border-2 border-black hover:opacity-85 font-bold tracking-wider text-white cursor-pointer mt-2"
+              className="w-full p-3 text-lg rounded-xl bg-[#EE2B69] text-white font-bold border-2 border-black transition hover:opacity-90 cursor-pointer"
             />
           </form>
 
           <button
-            className="text-blue-400 hover:text-blue-600"
+            className="text-blue-500 hover:underline hover:text-blue-700 text-center text-sm mt-2"
             onClick={() => navigate("/signin")}
           >
-            Already have an Account? Login
+            Already have an account? Login
           </button>
         </div>
       </div>
