@@ -12,10 +12,9 @@ import { useClubAuth } from "../context/ClubContext";
 export const Navbar = () => {
   const navigate = useNavigate();
 
-  
   const { user, logoutUser } = useAuth();
   const { club, logoutClub } = useClubAuth();
-  const isUser = !!user
+  const isUser = !!user;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -35,9 +34,9 @@ export const Navbar = () => {
     navigate("/");
   };
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     navigate("/");
-    if(isUser) await logoutUser();
+    if (isUser) await logoutUser();
     else await logoutClub();
     setAnchorEl(null);
     Swal.fire({
@@ -63,11 +62,6 @@ export const Navbar = () => {
     navigate(`/user/liked`);
   };
 
-  const handleSettings = () => {
-    if (isUser) navigate("/user/settings");
-    else navigate("/club/settings");
-  };
-
   return (
     <div className="border-b-1 p-2 px-4 flex flex-row justify-between items-center">
       <div className="flex text-2xl hover:cursor-pointer" onClick={handleHome}>
@@ -75,7 +69,7 @@ export const Navbar = () => {
         <p className="font-stretch-150% font-extrabold text-[#EE2B69]">Queue</p>
       </div>
 
-      {(user || club) ? (
+      {user || club ? (
         <>
           <div className="flex gap-1 items-center rounded-xl ">
             <p className="hidden [@media(min-width:500px)]:block text-sm text-black tracking-tight normal-case">
@@ -88,7 +82,11 @@ export const Navbar = () => {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <AccountCircleIcon className="text-black hover:bg-gray-300 rounded-full hover:text-blue-600" />
+              {!isUser && club.logo ? (
+                <img src={club.logo} alt="?" className="w-5 h-5 rounded-full"/>
+              ) : (
+                <AccountCircleIcon className="text-black hover:bg-gray-300 rounded-full hover:text-blue-600" />
+              )}
             </Button>
             <Menu
               id="basic-menu"
@@ -97,13 +95,10 @@ export const Navbar = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleProfile}>Profile</MenuItem>
-              { !isUser && <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>}
-              {isUser ?
-              (
-                <MenuItem onClick={handleLiked}>Liked</MenuItem>
-              ):(
-                <MenuItem onClick={handleSettings}>Settings</MenuItem>
-                )}
+              {!isUser && (
+                <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
+              )}
+              {isUser && <MenuItem onClick={handleLiked}>Liked</MenuItem>}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

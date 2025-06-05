@@ -55,7 +55,7 @@ export const ClubProvider = ({ children }) => {
     fetchClub();
   }, []);
   return (
-    <ClubContext.Provider value={{ club, clubEvents, loading, eventLoading, loginClub, logoutClub, fetchClubEvents }}>
+    <ClubContext.Provider value={{ club, clubEvents, loading, eventLoading, loginClub, logoutClub, fetchClubEvents, fetchClub }}>
       {children}
     </ClubContext.Provider>
   );
