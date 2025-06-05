@@ -33,30 +33,39 @@ export const LikedEventsPage = () => {
   return (
     <>
       <Navbar />
-      <main className="max-w-6xl mx-auto px-6 py-10">
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        <h1 className="text-3xl font-bold text-center mb-10 text-gray-800">❤️ Liked Events</h1>
         {filteredEvents.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEvents.map((e) => (
-              <div key={e.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-100 p-4" onClick={()=>handleShowCard(e)}>
+              <div
+                key={e.id}
+                className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-200 cursor-pointer p-4 transform hover:scale-[1.02]"
+                onClick={() => handleShowCard(e)}
+              >
                 <Card event={e} />
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center text-gray-500 text-lg mt-20">
-            No Events
+          <div className="flex flex-col items-center justify-center text-gray-500 text-lg mt-32">
+            No liked events found.
           </div>
         )}
       </main>
+
       {showCard && (
         <div
-                  className="fixed inset-0 flex w-screen h-screen justify-center items-center z-50 backdrop-blur-lg bg-black/10"
-                  onClick={handleCloseCard}
-                >
-                  <div onClick={(e) => e.stopPropagation()}>
-                    <DetailedCard event={selectedEvent} onClose={handleCloseCard} />
-                  </div>
-                </div>
+          className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/30"
+          onClick={handleCloseCard}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-3xl w-full p-4"
+          >
+            <DetailedCard event={selectedEvent} onClose={handleCloseCard} />
+          </div>
+        </div>
       )}
     </>
   )

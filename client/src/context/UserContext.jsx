@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
       }
     }
     fetchUser();
-  }, []);
+  }, [user]);
   return (
     <UserContext.Provider value={{ user, loading, loginUser, logoutUser, likedEvents, setLikedEvents }}>
       {children}

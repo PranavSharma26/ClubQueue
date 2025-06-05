@@ -160,3 +160,11 @@ export const deleteEvent = async (name,club,db)=>{
   `
   await db.query(query,[name,club]);
 }
+
+export const deleteOldEvent = async (db) =>{
+  const query = `
+    DELETE FROM events
+    WHERE eventDate < NOW() - INTERVAL 1 HOUR
+  `
+  await db.query(query)
+}

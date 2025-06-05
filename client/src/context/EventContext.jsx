@@ -48,11 +48,20 @@ export const EventProvider = ({ children }) => {
     }
   }
 
+  const deleteOldEvents = async () => {
+    try {
+      const res = await axios.delete('http://localhost:3000/api/event/deleteOldEvent')
+    } catch (error) {
+      console.log("Failed to Delete Event : ",error)
+    }
+  }
+
 	useEffect(()=>{
+    deleteOldEvents();
 		fetchEvents();
 	},[])
   return (
-    <EventContext.Provider value={{ event, addEvent, deleteEvent, fetchEvents }}>
+    <EventContext.Provider value={{ event, addEvent, deleteEvent, fetchEvents, deleteOldEvents }}>
       {children}
     </EventContext.Provider>
   );

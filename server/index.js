@@ -11,6 +11,7 @@ import fetchEventRoute from "./routes/club/fetchEvent.js"
 import editEventRoute from "./routes/event/editEvent.js"
 import likeUnlikeRoute from './routes/user/likeUnlikeEvents.js'
 import fetchLikedEventRoute from './routes/user/fetchLikedEvents.js'
+import deleteOldEventRoute from './routes/event/deleteOldEvent.js'
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/user',fetchLikedEventRoute);
 app.use("/api/event", deleteEventRoute);
 app.use("/api/event",postEventRoutes);
 app.use("/api/event",editEventRoute);
+app.use("/api/event",deleteOldEventRoute);
 
 // CLUB
 app.use("/api/club",fetchEventRoute);
