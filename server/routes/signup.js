@@ -44,7 +44,7 @@ router.post("/user", async (req, res) => {
 router.post("/club", async (req, res) => {
   try {
     let db = await getDB();
-    const { username, email, description, password ,isVerified } = req.body;
+    const { username, email, bio, password ,isVerified } = req.body;
     const email_lower = email.toLowerCase();
     if (await isUsernameExist(username, db, "clubs"))
       return res.status(400).json({ message: "Clubname Already Exists" });
@@ -58,7 +58,7 @@ router.post("/club", async (req, res) => {
     return (await insertClub(
       username,
       email_lower,
-      description,
+      bio,
       hashedPassword,
       db
     ))

@@ -17,6 +17,17 @@ export const UserProvider = ({ children }) => {
       console.error("Failed to logout user:", error);
     }
   };
+  const deleteUser = async () => {
+    try {
+      await axios.delete("http://localhost:3000/api/user/deleteUser", {
+        params:{id: user.id},  
+        withCredentials: true 
+      });
+      setUser(null);
+    } catch (error) {
+      console.error("Failed to Delete user:", error);
+    }
+  };
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -51,7 +62,7 @@ export const UserProvider = ({ children }) => {
     fetchUser();
   }, [user]);
   return (
-    <UserContext.Provider value={{ user, loading, loginUser, logoutUser, likedEvents, setLikedEvents }}>
+    <UserContext.Provider value={{ user, loading, loginUser, logoutUser, deleteUser, likedEvents, setLikedEvents }}>
       {children}
     </UserContext.Provider>
   );

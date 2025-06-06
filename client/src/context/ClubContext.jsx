@@ -7,7 +7,7 @@ export const ClubProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [eventLoading, setEventLoading] = useState(true);
   const [clubEvents, setClubEvents] = useState([])
-
+  
   const loginClub = async (clubData) => {
     setClub(clubData);
     await fetchClubEvents(clubData.username)
@@ -19,6 +19,17 @@ export const ClubProvider = ({ children }) => {
       setClub(null);
     } catch (error) {
       console.error("Failed to logout user:", error);
+    }
+  };
+  const deleteClub = async () => {
+    try {
+      await axios.delete("http://localhost:3000/api/club/deleteClub", {
+        params:{id: club.id}, 
+        withCredentials: true 
+      });
+      setClub(null);
+    } catch (error) {
+      console.error("Failed to delete club:", error);
     }
   };
   
@@ -55,7 +66,7 @@ export const ClubProvider = ({ children }) => {
     fetchClub();
   }, []);
   return (
-    <ClubContext.Provider value={{ club, clubEvents, loading, eventLoading, loginClub, logoutClub, fetchClubEvents, fetchClub }}>
+    <ClubContext.Provider value={{ club, clubEvents, loading, eventLoading, loginClub, logoutClub, deleteClub, fetchClubEvents, fetchClub }}>
       {children}
     </ClubContext.Provider>
   );

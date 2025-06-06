@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-gray-100 border-t p-6">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between gap-8 text-sm text-gray-700">
         
-        {/* Logo and About */}
         <div className="flex flex-col">
           <div className="flex items-center gap-1 text-2xl font-extrabold">
             <span>Club</span>

@@ -13,6 +13,8 @@ import likeUnlikeRoute from './routes/user/likeUnlikeEvents.js'
 import fetchLikedEventRoute from './routes/user/fetchLikedEvents.js'
 import deleteOldEventRoute from './routes/event/deleteOldEvent.js'
 import uploadClubLogoRoute from './routes/club/uploadClubLogo.js'
+import deleteUserRoute from './routes/user/deleteUser.js'
+import deleteClubRoute from './routes/club/deleteClub.js'
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -38,6 +40,7 @@ app.use("/api",authRoutes);
 // USER
 app.use("/api/user",likeUnlikeRoute);
 app.use("/api/user",fetchLikedEventRoute);
+app.use("/api/user",deleteUserRoute);
 
 // EVENT
 app.use("/api/event", deleteEventRoute);
@@ -47,7 +50,8 @@ app.use("/api/event",deleteOldEventRoute);
 
 // CLUB
 app.use("/api/club",fetchEventRoute);
-app.use("/api/club",uploadClubLogoRoute)
+app.use("/api/club",uploadClubLogoRoute);
+app.use("/api/club",deleteClubRoute);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

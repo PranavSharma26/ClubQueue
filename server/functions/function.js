@@ -65,7 +65,7 @@ export const fetchUserData = async (id, db) => {
 
 export const fetchClubData = async (id, db) => {
   const query = `
-    SELECT username, email, description, logo, createdAt 
+    SELECT id, username, email, description, logo, createdAt 
     FROM clubs
     WHERE id = ?
     `;
@@ -167,4 +167,20 @@ export const deleteOldEvent = async (db) =>{
     WHERE eventDate < NOW() - INTERVAL 1 HOUR
   `
   await db.query(query)
+}
+
+export const deleteUser = async (db, userId) => {
+  const query = `
+    DELETE FROM users
+    WHERE id = ?
+  `
+  await db.query(query,[userId])
+}
+
+export const deleteClub = async (db, clubId) => {
+  const query = `
+    DELETE FROM clubs
+    WHERE id = ?
+  `
+  await db.query(query,[clubId])
 }
