@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from "../../context/UserContext";
 import { useClubAuth } from "../../context/ClubContext";
+import { backendURL } from "../../utils/getBackendURL";
 
 export const Signin = () => {
   const {
@@ -23,14 +24,14 @@ export const Signin = () => {
   const onSubmit = async (data) => {
     try {
       const endpoint = isUser
-        ? "http://localhost:3000/api/signin/user"
-        : "http://localhost:3000/api/signin/club";
+        ? `${backendURL}/api/signin/user`
+        : `${backendURL}/api/signin/club`;
       const response = await axios.post(endpoint, data, {
         withCredentials: true,
       });
       console.log("Successful");
 
-      const meResponse = await axios.get("http://localhost:3000/api/me", {
+      const meResponse = await axios.get(`${backendURL}/api/me`, {
         withCredentials: true,
       });
 

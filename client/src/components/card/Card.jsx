@@ -6,6 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAuth } from "../../context/UserContext";
 import axios from "axios";
 import { fetchDate } from "../../functions/functions";
+import { backendURL } from "../../utils/getBackendURL";
 
 export const Card = ({ event }) => {
   const { user, likedEvents, setLikedEvents } = useAuth();
@@ -21,7 +22,7 @@ export const Card = ({ event }) => {
     try {
       await axios({
         method,
-        url: `http://localhost:3000${url}`,
+        url: `${backendURL}${url}`,
         data: { user_id: user.id, event_id: event.id },
         withCredentials: true,
       });

@@ -22,12 +22,15 @@ export const LikedEventsPage = () => {
 
   useEffect(() => {
     fetchEvents();
+  }, []);
+  
+  useEffect(() => {
     if (event && likedEvents) {
       const likedIds = likedEvents.map(e => e);
       const filtered = event.filter(e => likedIds.includes(e.id));
       setFilteredEvents(filtered);
     }
-  }, [event,likedEvents]);
+  }, [event, likedEvents]);
   
 
   return (

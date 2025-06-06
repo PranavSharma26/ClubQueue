@@ -4,6 +4,7 @@ import { images } from "../../functions/functions.js";
 import { useClubAuth } from "../../context/ClubContext.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { backendURL } from "../../utils/getBackendURL.js";
 
 export const EditCard = ({ event,onClose }) => {
   const imageOption = images;
@@ -26,7 +27,7 @@ export const EditCard = ({ event,onClose }) => {
         club: club.username,
       };
       const response = await axios.put(
-        "http://localhost:3000/api/event/editEvent",
+        `${backendURL}/api/event/editEvent`,
         finalData
       );
       await fetchClubEvents(club.username)

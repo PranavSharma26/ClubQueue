@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import { backendURL } from "../utils/getBackendURL";
 const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
@@ -7,7 +8,7 @@ export const EventProvider = ({ children }) => {
 
   const fetchEvents= async()=>{
     try {
-      const res = await axios.get('http://localhost:3000/api/event/postEvent')
+      const res = await axios.get(`${backendURL}/api/event/postEvent`)
       setEvent(res.data)
     } catch (error) {
       setEvent([])
@@ -40,7 +41,7 @@ export const EventProvider = ({ children }) => {
 
   const deleteEvent = async (name,club) => {
     try {
-      const res= await axios.delete('http://localhost:3000/api/event/deleteEvent',{params:{name,club}, withCredentials: true})
+      const res= await axios.delete(`${backendURL}/api/event/deleteEvent`,{params:{name,club}, withCredentials: true})
       fetchEvents();
       
     } catch (err) {
@@ -50,7 +51,7 @@ export const EventProvider = ({ children }) => {
 
   const deleteOldEvents = async () => {
     try {
-      const res = await axios.delete('http://localhost:3000/api/event/deleteOldEvent')
+      const res = await axios.delete(`${backendURL}/api/event/deleteOldEvent`)
     } catch (error) {
       console.log("Failed to Delete Event : ",error)
     }

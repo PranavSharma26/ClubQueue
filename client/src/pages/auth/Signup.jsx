@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { backendURL } from "../../utils/getBackendURL";
 export const Signup = () => {
   const navigate = useNavigate();
   const {
@@ -32,8 +33,8 @@ export const Signup = () => {
       };
 
       const endpoint = isUser
-        ? "http://localhost:3000/api/signup/user"
-        : "http://localhost:3000/api/signup/club";
+        ? `${backendURL}/api/signup/user`
+        : `${backendURL}/api/signup/club`;
 
       const response = await axios.post(endpoint, isUser ? userData : clubData);
       console.log("Successfull");

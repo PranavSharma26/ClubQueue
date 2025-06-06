@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { backendURL } from "../../utils/getBackendURL";
 
 export const Verification = () => {
   const navigate = useNavigate();
@@ -37,8 +38,8 @@ export const Verification = () => {
       user.data.isVerified = true;
 
       const endpoint = isUser
-        ? "http://localhost:3000/api/signup/user"
-        : "http://localhost:3000/api/signup/club";
+        ? `${backendURL}/api/signup/user`
+        : `${backendURL}/api/signup/club`;
 
       await axios.post(endpoint, user.data);
       console.log("Successfully verified");
@@ -64,13 +65,13 @@ export const Verification = () => {
       );
       const userEmail = userData?.data?.email;
 
-      await axios.post("http://localhost:3000/api/verify/send-otp", {
+      await axios.post(`${backendURL}/api/verify/send-otp`, {
         email: userEmail,
         otp: generatedOtp,
       });
 
       setResendDisabled(true);
-      setTimeout(() => setResendDisabled(false), 30000); // 30s cooldown
+      setTimeout(() => setResendDisabled(false), 30000); 
 
       Swal.fire({
         icon: "success",

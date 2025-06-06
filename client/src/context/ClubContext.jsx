@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import {backendURL} from '../utils/getBackendURL'
 
 const ClubContext = createContext();
 export const ClubProvider = ({ children }) => {
@@ -15,7 +16,7 @@ export const ClubProvider = ({ children }) => {
 
   const logoutClub = async () => {
     try {
-      await axios.post("http://localhost:3000/api/logout", {}, { withCredentials: true });
+      await axios.post(`${backendURL}/api/logout`, {}, { withCredentials: true });
       setClub(null);
     } catch (error) {
       console.error("Failed to logout user:", error);
@@ -23,7 +24,7 @@ export const ClubProvider = ({ children }) => {
   };
   const deleteClub = async () => {
     try {
-      await axios.delete("http://localhost:3000/api/club/deleteClub", {
+      await axios.delete(`${backendURL}/api/club/deleteClub`, {
         params:{id: club.id}, 
         withCredentials: true 
       });
@@ -36,7 +37,7 @@ export const ClubProvider = ({ children }) => {
   const fetchClubEvents = async (clubName) =>{
     setEventLoading(true)
     try {
-      const res = await axios.get("http://localhost:3000/api/club/fetchEvent",{ params:{club: clubName}, withCredentials: true})
+      const res = await axios.get(`${backendURL}/api/club/fetchEvent`,{ params:{club: clubName}, withCredentials: true})
       setClubEvents(res.data)
     } catch (err) {
       setClubEvents([])
@@ -47,7 +48,7 @@ export const ClubProvider = ({ children }) => {
 
   const fetchClub = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/me", {
+      const res = await axios.get(`${backendURL}/api/me`, {
         withCredentials: true,
       });
       if (res.data.role === "club"){
@@ -55,8 +56,13 @@ export const ClubProvider = ({ children }) => {
         await fetchClubEvents(res.data.data.username);
       }
       else setClub(null);
-    } catch (err) {
+    } catch (error) {
       setClub(null);
+      if (error.response?.status === 401 || error.response?.status === 404) {
+        console.warn("User not authenticated or not found.");
+      } else {
+        console.error("Failed to fetch user:", error);
+      }
     } finally {
       setLoading(false);
     }

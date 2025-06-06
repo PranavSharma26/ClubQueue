@@ -73,7 +73,7 @@ export const EventContainer = () => {
   >
     {searchEvent.map((e) => (
       <div
-        key={e.id}
+        key={e.id || `${e.name}-${e.club}`}
         className="w-full max-w-[240px]"
         onClick={() => handleShowCard(e)}
       >

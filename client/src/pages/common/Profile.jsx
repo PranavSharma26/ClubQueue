@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { useAuth } from "../../context/UserContext";
 import { useClubAuth } from "../../context/ClubContext";
@@ -7,6 +7,9 @@ import axios from "axios";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import {backendURL} from '../../utils/getBackendURL'
 
 export const Profile = () => {
   const { user, logoutUser, deleteUser } = useAuth();
@@ -14,8 +17,20 @@ export const Profile = () => {
   const profile = user || club;
   const isClub = !!club;
   const fileInputRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const image = isClub ? club.logo : "/user-2.png";
+  const [isDark, setIsDark] = useState(()=>{
+    const res = localStorage.getItem("mode")
+    return res === "dark"
+  });
+
+  const toggleMode = () => {
+    setIsDark((prev)=>{
+      const newMode = !prev
+      localStorage.setItem("mode",newMode?"dark":"light")
+      return newMode
+    })
+  }
 
   const handleLogoUpload = async (e) => {
     const file = e.target.files[0];
@@ -30,7 +45,7 @@ export const Profile = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/club/uploadClubLogo",
+        `${backendURL}/api/club/uploadClubLogo`,
         formData,
         {
           headers: {
@@ -48,7 +63,7 @@ export const Profile = () => {
   };
 
   const handleLogout = async () => {
-    navigate('/')
+    navigate("/");
     if (isClub) await logoutClub();
     else await logoutUser();
     Swal.fire({
@@ -72,8 +87,8 @@ export const Profile = () => {
       confirmButtonText: "Yes, delete it!",
     });
     if (result.isConfirmed) {
-      navigate('/')
-      if(isClub) await deleteClub();
+      navigate("/");
+      if (isClub) await deleteClub();
       else await deleteUser();
       Swal.fire({
         position: "center",
@@ -84,17 +99,23 @@ export const Profile = () => {
         timerProgressBar: true,
       });
     }
-  }
+  };
 
   return (
     <>
       <Navbar />
       <div className="min-h-[calc(100vh-64px)] flex flex-col justify-between w-full bg-gray-50">
-        <div className="max-w-4xl mx-auto mt-10 p-6 sm:p-10 bg-white w-full rounded-2xl shadow-lg">
+        <div className="max-w-4xl mx-auto mt-10 p-6 sm:p-10 bg-white w-full rounded-2xl shadow-lg relative">
+          <button
+            onClick={toggleMode}
+            className="absolute top-4 right-4 text-sm rounded-md border-gray-400 hover:scale-120 transition hover:cursor-pointer"
+          >
+            {isDark ? <LightModeIcon/> : <DarkModeIcon/>}
+          </button>
+
           <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-gray-800">
             {isClub ? "Club Profile" : "User Profile"}
           </h1>
-
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-center sm:items-start">
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden border-4 border-gray-300 shadow-sm hover:scale-105 transition-all duration-200 ease-in-out">
@@ -143,18 +164,18 @@ export const Profile = () => {
 
               {!isClub && (
                 <>
-                <div>
-                  <p className="text-sm text-gray-500">First Name</p>
-                  <p className="text-lg font-medium text-gray-700">
-                    {profile?.firstName || "-"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Last Name</p>
-                  <p className="text-lg font-medium text-gray-700">
-                    {profile?.lastName || "-"}
-                  </p>
-                </div>
+                  <div>
+                    <p className="text-sm text-gray-500">First Name</p>
+                    <p className="text-lg font-medium text-gray-700">
+                      {profile?.firstName || "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Last Name</p>
+                    <p className="text-lg font-medium text-gray-700">
+                      {profile?.lastName || "-"}
+                    </p>
+                  </div>
                 </>
               )}
 
@@ -177,7 +198,10 @@ export const Profile = () => {
           >
             Log Out
           </button>
-          <button className="px-6 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition shadow" onClick={handleDelete}>
+          <button
+            className="px-6 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition shadow"
+            onClick={handleDelete}
+          >
             Delete Account
           </button>
         </div>

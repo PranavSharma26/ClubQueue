@@ -5,6 +5,7 @@ import { useClubAuth } from "../context/ClubContext.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEventAuth } from "../context/EventContext.jsx";
+import { backendURL } from "../utils/getBackendURL.js";
 
 export const EventForm = ({ onClose }) => {
   const imageOption = images;
@@ -27,7 +28,7 @@ export const EventForm = ({ onClose }) => {
       };
       console.log(finalData)
       const response = await axios.post(
-        "http://localhost:3000/api/event/postEvent",
+        `${backendURL}/api/event/postEvent`,
         finalData
       );
       if(response.status<400){

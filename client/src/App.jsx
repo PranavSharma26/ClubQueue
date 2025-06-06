@@ -3,7 +3,6 @@ import { Home } from "./pages/Home";
 import { Signin } from "./pages/auth/Signin";
 import { PageNotFound } from "./pages/PageNotFound";
 import { Profile } from "./pages/common/Profile";
-import { UserSettings } from "./pages/common/Settings";
 import UserProtectedRoute from "./context/UserProtectedRoute";
 import { Signup } from "./pages/auth/Signup";
 import ClubProtectedRoute from "./context/ClubProtectedRoute";
@@ -53,14 +52,6 @@ function App() {
         element={
           <ClubProtectedRoute>
             <Profile />
-          </ClubProtectedRoute>
-        }
-      />
-      <Route
-        path="club/settings"
-        element={
-          <ClubProtectedRoute>
-            <UserSettings />
           </ClubProtectedRoute>
         }
       />
