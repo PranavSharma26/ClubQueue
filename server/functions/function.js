@@ -117,6 +117,16 @@ export const insertEvent = async (
   }
 };
 
+export const fetchClubEvent = async (db,club) => {
+  const query = `
+    SELECT * 
+    FROM events
+    WHERE club = ?
+  `;
+  const [data] = await db.query(query,[club]);
+  return data
+};
+
 export const updateEvent = async (
   oldName,
   name,
@@ -144,7 +154,7 @@ export const updateEvent = async (
       location,
       registrationLink,
       oldName,
-      club
+      club,
     ]);
     return true;
   } catch (error) {
@@ -153,34 +163,78 @@ export const updateEvent = async (
   }
 };
 
-export const deleteEvent = async (name,club,db)=>{
-  const query=`
+export const deleteEvent = async (name, club, db) => {
+  const query = `
     DELETE FROM events 
     WHERE name = ? and club = ? 
-  `
-  await db.query(query,[name,club]);
-}
+  `;
+  await db.query(query, [name, club]);
+};
 
-export const deleteOldEvent = async (db) =>{
+export const deleteOldEvent = async (db) => {
   const query = `
     DELETE FROM events
     WHERE eventDate < NOW() - INTERVAL 1 HOUR
-  `
-  await db.query(query)
-}
+  `;
+  await db.query(query);
+};
 
 export const deleteUser = async (db, userId) => {
   const query = `
     DELETE FROM users
     WHERE id = ?
-  `
-  await db.query(query,[userId])
-}
+  `;
+  await db.query(query, [userId]);
+};
 
 export const deleteClub = async (db, clubId) => {
   const query = `
     DELETE FROM clubs
     WHERE id = ?
+  `;
+  await db.query(query, [clubId]);
+};
+
+export const updateClubLogo = async (db,url,club) => {
+  const query = `
+    UPDATE clubs 
+    SET logo = ? 
+    WHERE username = ?
   `
-  await db.query(query,[clubId])
+  await db.query(query,[url,club])
+}
+
+export const fetchEvents = async(db) => {
+  const query=`
+    SELECT *
+    FROM events
+    ORDER BY id desc
+  `
+  let [data] = await db.query(query)
+  return data
+}
+
+export const fetchLikedEvents = async (db,user_id) => {
+  const query = `
+    SELECT * 
+    FROM liked_events
+    WHERE user_id = ?
+  `
+  const [rows] = await db.query(query,[user_id])
+  return rows
+}
+
+export const likeEvent = async (db,user_id,event_id) => {
+  const query = `
+    INSERT IGNORE INTO liked_events (user_id, event_id) VALUES (?,?)
+  `
+  await db.query(query,[user_id, event_id])
+}
+
+export const unlikeEvent = async (db,user_id,event_id) => {
+  const query = `
+    DELETE FROM liked_events
+    WHERE user_id = ? and event_id = ?
+  `
+  await db.query(query,[user_id, event_id])
 }

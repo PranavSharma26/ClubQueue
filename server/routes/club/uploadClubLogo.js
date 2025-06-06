@@ -4,6 +4,7 @@ import { upload } from "../../middlewares/multer.middleware.js";
 import {getDB} from '../../db/dbConnect.js'
 const router = express.Router();
 import fs from "fs/promises"
+import { updateClubLogo } from "../../functions/function.js";
 
 router.post("/uploadClubLogo", upload.single("logo"), async (req, res) => {
 	try {
@@ -16,7 +17,8 @@ router.post("/uploadClubLogo", upload.single("logo"), async (req, res) => {
 
   if (!url) return res.status(500).json({ error: "Upload failed" });
 
-		await db.query('UPDATE clubs SET logo = ? WHERE username = ?', [url, club])
+		// await db.query('UPDATE clubs SET logo = ? WHERE username = ?', [url, club])
+    await updateClubLogo(db,url,club)
 		await fs.unlink(localPath);
     return res.status(200).json({ message: "Image Uploaded successfully" });
   } catch (error) {

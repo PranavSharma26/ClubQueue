@@ -1,6 +1,6 @@
 import express from "express";
 import { getDB } from "../../db/dbConnect.js";
-import { insertEvent, isEventUnique } from "../../functions/function.js";
+import { fetchEvents, insertEvent, isEventUnique } from "../../functions/function.js";
 
 const router = express.Router();
 
@@ -46,13 +46,14 @@ router.post("/postEvent", async (req, res) => {
 router.get("/postEvent", async (req, res) => {
   try {
     let db = await getDB();
-    const query=`
-      SELECT *
-      FROM events
-      ORDER BY id desc
-    `
-    let data = await db.query(query)
-    return res.status(200).json(data[0]);
+    // const query=`
+    //   SELECT *
+    //   FROM events
+    //   ORDER BY id desc
+    // `
+    // let data = await db.query(query)
+    let data = await fetchEvents(db)
+    return res.status(200).json(data);
 
   } catch (error) {
     console.log("Error Posting Event",error);
