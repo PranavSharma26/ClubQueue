@@ -229,7 +229,13 @@ export const Signup = () => {
 
             <div>
               <input
-                {...register("password", { required: "Password is required" })}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 5,
+                    message: "Password must be at least 5 characters",
+                  },
+                })}
                 type="password"
                 placeholder="Enter Password"
                 className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"

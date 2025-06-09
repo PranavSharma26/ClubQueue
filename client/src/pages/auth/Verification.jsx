@@ -59,7 +59,6 @@ export const Verification = () => {
     try {
       const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
       setCorrectOtp(generatedOtp);
-
       const userData = JSON.parse(
         localStorage.getItem("user") || localStorage.getItem("club")
       );
@@ -68,6 +67,7 @@ export const Verification = () => {
       await axios.post(`${backendURL}/api/verify/send-otp`, {
         email: userEmail,
         otp: generatedOtp,
+        mode: 1
       });
 
       setResendDisabled(true);

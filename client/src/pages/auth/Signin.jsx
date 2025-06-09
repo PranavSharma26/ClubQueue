@@ -21,6 +21,10 @@ export const Signin = () => {
     setIsUser(!isUser);
   };
 
+  const handleForgotPassword = () => {
+    navigate('/forgotPassword')
+  }
+
   const onSubmit = async (data) => {
     try {
       const endpoint = isUser
@@ -134,13 +138,16 @@ export const Signin = () => {
                   {errors.password.message}
                 </p>
               )}
+              <div className="w-full text-end p-1">
+                <button className="text-blue-500 hover:underline hover:text-blue-700 text-sm" onClick={handleForgotPassword}>Forgot Password?</button>
+              </div>
             </div>
 
             <input
               type="submit"
               disabled={isSubmitting}
               value={isSubmitting ? "Logging in..." : "Log in"}
-              className="w-full p-3 bg-[#EE2B69] text-white font-bold text-lg rounded-xl border-2 border-black hover:opacity-90 cursor-pointer"
+              className="w-full p-3 bg-[#EE2B69] text-white font-bold text-lg rounded-xl border-2 border-black hover:opacity-90 cursor-pointer mt-8"
             />
           </form>
 

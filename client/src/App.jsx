@@ -10,6 +10,8 @@ import { Verification } from "./pages/auth/Verification";
 import PublicOnlyRoute from "./context/PublicOnlyRoutes";
 import { ClubDashboard } from "./pages/club/Dashboard";
 import { LikedEventsPage } from "./pages/user/LikedEventsPage";
+import { ForgotPassword } from "./pages/auth/ForgotPassword";
+import { ChangePassword } from "./pages/auth/ChangePassword";
 function App() {
   return (
     <Routes>
@@ -39,6 +41,19 @@ function App() {
           </UserProtectedRoute>
         }
       />
+      <Route
+        path="/forgotPassword"
+        element={
+          <PublicOnlyRoute>
+            <ForgotPassword />
+          </PublicOnlyRoute>
+        }
+      />
+      <Route path='/changePassword' element={
+        <PublicOnlyRoute>
+          <ChangePassword />
+        </PublicOnlyRoute>
+      }/>
       <Route
         path="/user/liked"
         element={

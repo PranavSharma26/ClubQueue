@@ -15,6 +15,7 @@ import deleteOldEventRoute from './routes/event/deleteOldEvent.js'
 import uploadClubLogoRoute from './routes/club/uploadClubLogo.js'
 import deleteUserRoute from './routes/user/deleteUser.js'
 import deleteClubRoute from './routes/club/deleteClub.js'
+import changePasswordRoute from './routes/changePassword.js'
 import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -36,6 +37,7 @@ app.use("/api/signup", signupRoutes);
 app.use("/api/verify", verifyRoutes);
 app.use("/api/signin", signinRoutes);
 app.use("/api",authRoutes);
+app.use("/api",changePasswordRoute)
 
 // USER
 app.use("/api/user",likeUnlikeRoute);

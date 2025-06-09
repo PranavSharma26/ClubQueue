@@ -238,3 +238,18 @@ export const unlikeEvent = async (db,user_id,event_id) => {
   `
   await db.query(query,[user_id, event_id])
 }
+
+export const changePassword = async (email,password,db,table) => {
+  try {
+    const query = `
+      UPDATE ${table} 
+      SET password = ?
+      WHERE email = ?     
+    `
+    await db.query(query,[password,email])
+    return true
+  } catch (error) {
+    console.error("Error changing password:", error);
+    return false
+  }
+}
