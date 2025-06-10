@@ -36,9 +36,9 @@ export const Card = ({ event }) => {
   };
 
   return (
-    <div className="p-4 w-full flex flex-col border-[1.5px] rounded-lg gap-3 shadow-xl bg-white">
+    <div className="p-4 w-full flex flex-col border-[1.5px] rounded-lg gap-3 shadow-xl bg-white dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-between">
-        <p className="tracking-wide text-lg font-semibold truncate w-full">
+        <p className="tracking-wide text-lg font-semibold truncate w-full text-black dark:text-white">
           {event.name}
         </p>
         {user && (
@@ -46,13 +46,13 @@ export const Card = ({ event }) => {
             {isLiked ? (
               <FavoriteIcon className="text-red-500" />
             ) : (
-              <FavoriteBorderIcon />
+              <FavoriteBorderIcon className="text-black dark:text-white" />
             )}
           </div>
         )}
       </div>
 
-      <div className="relative w-full aspect-square bg-gray-200 rounded-md overflow-hidden">
+      <div className="relative w-full aspect-square bg-gray-200 dark:bg-gray-500 rounded-md overflow-hidden">
         {event.imgPath ? (
           <img
             src={event.imgPath}
@@ -60,20 +60,20 @@ export const Card = ({ event }) => {
             className="absolute top-0 left-0 w-full h-full object-fill"
           />
         ) : (
-          <div className="flex justify-center items-center w-full h-full">
+          <div className="flex justify-center items-center w-full h-full text-black dark:text-white">
             <InsertPhotoOutlinedIcon />
           </div>
         )}
       </div>
 
-      <p className="text-sm h-10 text-gray-700 line-clamp-2">
+      <p className="text-sm h-10 text-gray-700 dark:text-gray-300 line-clamp-2">
         {event.description}
       </p>
 
-      <div className="w-full flex justify-between text-[15px] text-gray-600">
+      <div className="w-full flex justify-between text-[15px] text-gray-600 dark:text-gray-400">
         <p className="truncate max-w-[50%]">{event.club}</p>
-        <div className="flex items-center">
-          <CalendarMonthIcon />
+        <div className="flex items-center gap-1">
+          <CalendarMonthIcon fontSize="small" />
           <p className="truncate text-right">{fetchDate(event.eventDate)}</p>
         </div>
       </div>

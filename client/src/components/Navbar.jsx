@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
@@ -63,16 +63,19 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="border-b-1 p-2 px-4 flex flex-row justify-between items-center">
-      <div className="flex text-2xl hover:cursor-pointer" onClick={handleHome}>
-        <p className="font-stretch-150% font-extrabold">Club</p>
-        <p className="font-stretch-150% font-extrabold text-[#EE2B69]">Queue</p>
+    <div className="border-b border-gray-300 dark:border-gray-700 p-2 px-4 flex flex-row justify-between items-center bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div
+        className="flex text-2xl hover:cursor-pointer"
+        onClick={handleHome}
+      >
+        <p className="font-stretch-150% font-extrabold text-black dark:text-gray-200">Club</p>
+        <p className="font-stretch-150% font-extrabold text-[#EE2B69] ">Queue</p>
       </div>
 
       {user || club ? (
         <>
-          <div className="flex gap-1 items-center rounded-xl ">
-            <p className="hidden [@media(min-width:500px)]:block text-sm text-black tracking-tight normal-case">
+          <div className="flex gap-1 items-center rounded-xl">
+            <p className="hidden [@media(min-width:500px)]:block text-sm text-black dark:text-gray-200 tracking-tight normal-case">
               {user?.username || club?.username}
             </p>
             <Button
@@ -81,11 +84,16 @@ export const Navbar = () => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
+              className="p-0 min-w-0"
             >
               {!isUser && club.logo ? (
-                <img src={club.logo} alt="?" className="w-5 h-5 rounded-full"/>
+                <img
+                  src={club.logo}
+                  alt="?"
+                  className="w-5 h-5 rounded-full border border-gray-300 dark:border-gray-600"
+                />
               ) : (
-                <AccountCircleIcon className="text-black hover:bg-gray-300 rounded-full hover:text-blue-600" />
+                <AccountCircleIcon className="text-black dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-full" />
               )}
             </Button>
             <Menu
@@ -93,11 +101,19 @@ export const Navbar = () => {
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
+              PaperProps={{
+                style: {
+                  backgroundColor: window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "#1f2937" // Tailwind gray-800
+                    : "#fff",
+                  color: window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "#e5e7eb" // Tailwind gray-200
+                    : "#000",
+                },
+              }}
             >
               <MenuItem onClick={handleProfile}>Profile</MenuItem>
-              {!isUser && (
-                <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
-              )}
+              {!isUser && <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>}
               {isUser && <MenuItem onClick={handleLiked}>Liked</MenuItem>}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
@@ -105,7 +121,7 @@ export const Navbar = () => {
         </>
       ) : (
         <button
-          className="flex gap-1 justify-center items-center border-3 rounded-lg p-1 px-2"
+          className="flex gap-1 justify-center items-center border-3 rounded-lg p-1 px-2 border-black dark:border-gray-200 text-black dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
           onClick={handleSubmit}
         >
           <p>Login</p>

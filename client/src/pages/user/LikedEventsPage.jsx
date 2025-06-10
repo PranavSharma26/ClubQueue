@@ -6,44 +6,45 @@ import { useEventAuth } from '../../context/EventContext'
 import { DetailedCard } from '../../components/card/DetailedCard'
 
 export const LikedEventsPage = () => {
-  const {likedEvents} = useAuth()
-  const {event, fetchEvents} = useEventAuth()
+  const { likedEvents } = useAuth()
+  const { event, fetchEvents } = useEventAuth()
   const [filteredEvents, setFilteredEvents] = useState([])
   const [showCard, setShowCard] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState([])
 
-  const handleShowCard=(e)=>{
+  const handleShowCard = (e) => {
     setSelectedEvent(e)
     setShowCard(true)
   }
-  const handleCloseCard=(e)=>{
+
+  const handleCloseCard = () => {
     setShowCard(false)
   }
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
-  
+    fetchEvents()
+  }, [])
+
   useEffect(() => {
     if (event && likedEvents) {
-      const likedIds = likedEvents.map(e => e);
-      const filtered = event.filter(e => likedIds.includes(e.id));
-      setFilteredEvents(filtered);
+      const likedIds = likedEvents.map(e => e)
+      const filtered = event.filter(e => likedIds.includes(e.id))
+      setFilteredEvents(filtered)
     }
-  }, [event, likedEvents]);
-  
+  }, [event, likedEvents])
 
   return (
     <>
       <Navbar />
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-bold text-center mb-10 text-gray-800">❤️ Liked Events</h1>
+      <main className="max-w-6xl mx-auto px-6 py-12 bg-white dark:bg-gray-900 min-h-screen min-w-screen transition-colors duration-300">
+        <h1 className="text-3xl font-bold text-center mb-10 text-gray-800 dark:text-white">❤️ Liked Events</h1>
+
         {filteredEvents.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEvents.map((e) => (
               <div
                 key={e.id}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-200 cursor-pointer p-4 transform hover:scale-[1.02]"
+                className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-2xl shadow-md hover:shadow-xl transition duration-200 cursor-pointer p-4 transform hover:scale-[1.02]"
                 onClick={() => handleShowCard(e)}
               >
                 <Card event={e} />
@@ -51,7 +52,7 @@ export const LikedEventsPage = () => {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center text-gray-500 text-lg mt-32">
+          <div className="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 text-lg mt-32">
             No liked events found.
           </div>
         )}

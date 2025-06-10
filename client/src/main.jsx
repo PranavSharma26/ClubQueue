@@ -7,19 +7,22 @@ import { UserProvider } from "./context/UserContext.jsx";
 import { ClubProvider } from "./context/ClubContext.jsx";
 import { EventProvider } from "./context/EventContext.jsx";
 import { SearchProvider } from "./context/searchContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <ClubProvider>
-          <EventProvider>
-            <SearchProvider>
-              <App />
-            </SearchProvider>
-          </EventProvider>
-        </ClubProvider>
-      </UserProvider>
+      <ThemeProvider>
+        <UserProvider>
+          <ClubProvider>
+            <EventProvider>
+              <SearchProvider>
+                <App />
+              </SearchProvider>
+            </EventProvider>
+          </ClubProvider>
+        </UserProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
 );
