@@ -96,13 +96,13 @@ export const Signup = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-4 py-10 min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100">
-        <div className="flex mb-8 rounded-xl overflow-hidden border border-black shadow-md">
+      <div className="flex flex-col items-center justify-center px-4 py-10 min-h-screen bg-gradient-to-br dark:from-gray-950 dark:via-blue-950 dark:to-gray-950 from-pink-100 to-yellow-100">
+        <div className="flex mb-8 rounded-xl overflow-hidden border border-black shadow-md dark:text-white dark:border-white">
           <button
             className={`px-6 py-2 text-xl sm:text-2xl font-semibold transition ${
               isUser
-                ? "bg-amber-300 text-black"
-                : "bg-gray-200 hover:bg-amber-200"
+                ? "bg-amber-300 text-black dark:text-white dark:bg-yellow-500"
+                : "bg-gray-200 hover:bg-amber-200 dark:bg-gray-900 dark:hover:bg-gray-950"
             }`}
             onClick={handleToggle}
           >
@@ -110,7 +110,7 @@ export const Signup = () => {
           </button>
           <button
             className={`px-6 py-2 text-xl sm:text-2xl font-semibold transition ${
-              isUser ? "hover:bg-amber-200" : "bg-amber-300 text-black"
+              isUser ? "hover:bg-amber-200 dark:hover:bg-gray-950" : "bg-amber-300 text-black dark:text-white dark:bg-yellow-500"
             }`}
             onClick={handleToggle}
           >
@@ -118,10 +118,10 @@ export const Signup = () => {
           </button>
         </div>
 
-        <div className="w-full max-w-md sm:max-w-xl bg-white border-2 border-gray-300 rounded-3xl shadow-2xl p-6 sm:p-10 flex flex-col gap-6">
+        <div className="w-full max-w-md sm:max-w-xl bg-white border-2 border-gray-300 rounded-3xl shadow-2xl p-6 sm:p-10 flex flex-col gap-6 dark:bg-gray-900">
           <div className="flex justify-center text-4xl sm:text-5xl font-extrabold">
             <p className="text-amber-400 mr-2">{isUser ? "User" : "Club"}</p>
-            <p>Sign</p>
+            <p className="dark:text-white">Sign</p>
             <p className="text-[#EE2B69] ml-1">up</p>
           </div>
 
@@ -149,7 +149,7 @@ export const Signup = () => {
                 })}
                 type="text"
                 placeholder={`Enter ${isUser ? "Username" : "Clubname"}`}
-                className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="w-full dark:bg-gray-800 dark:text-white p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.username && (
                 <p className="text-sm text-red-500 mt-1">
@@ -169,7 +169,7 @@ export const Signup = () => {
                 })}
                 type="email"
                 placeholder="Enter Email"
-                className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="w-full dark:bg-gray-800 dark:text-white p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.email && (
                 <p className="text-sm text-red-500 mt-1">
@@ -187,7 +187,7 @@ export const Signup = () => {
                       message: "Maximum 200 characters allowed",
                     },
                   })}
-                  className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-400"
                   placeholder="Enter Club Bio"
                 />
                 {errors.bio && (
@@ -203,7 +203,7 @@ export const Signup = () => {
                     {...register("firstName", { maxLength: 20 })}
                     type="text"
                     placeholder="Enter First Name"
-                    className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-amber-400"
                   />
                   {errors.firstName && (
                     <p className="text-sm text-red-500 mt-1">
@@ -216,7 +216,7 @@ export const Signup = () => {
                     {...register("lastName", { maxLength: 20 })}
                     type="text"
                     placeholder="Enter Last Name"
-                    className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full p-3 px-5 text-lg dark:bg-gray-800 dark:text-white rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                   {errors.lastName && (
                     <p className="text-sm text-red-500 mt-1">
@@ -238,7 +238,7 @@ export const Signup = () => {
                 })}
                 type="password"
                 placeholder="Enter Password"
-                className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="w-full dark:bg-gray-800 dark:text-white p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
               {errors.password && (
                 <p className="text-sm text-red-500 mt-1">

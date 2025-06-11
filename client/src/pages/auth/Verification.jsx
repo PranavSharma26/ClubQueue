@@ -114,21 +114,18 @@ export const Verification = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 px-4 py-10">
-  <div className="w-full max-w-md bg-white border-2 border-gray-300 rounded-3xl shadow-2xl px-8 py-10 flex flex-col gap-8 items-center">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br dark:from-gray-950 dark:via-blue-950 dark:to-gray-950 from-pink-100 to-yellow-100 px-4 py-10">
+  <div className="w-full max-w-md bg-white border-2 border-gray-300 rounded-3xl shadow-2xl px-8 py-10 flex flex-col gap-8 items-center dark:bg-gray-900">
     
-    {/* Title */}
     <div className="text-4xl sm:text-5xl font-extrabold text-center">
-      <p className="inline">Verify</p>
+      <p className="inline dark:text-white">Verify</p>
       <p className="inline text-[#EE2B69]">&nbsp;Email</p>
     </div>
 
-    {/* Description */}
     <p className="text-gray-600 text-center text-sm sm:text-base px-2">
       Enter the 6-digit code sent to your email address
     </p>
 
-    {/* OTP Inputs */}
     <div className="flex justify-center gap-3">
       {otp.map((digit, index) => (
         <input
@@ -139,12 +136,11 @@ export const Verification = () => {
           onChange={(e) => handleChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
           ref={(el) => (inputsRef.current[index] = el)}
-          className="w-12 h-12 sm:w-14 sm:h-14 border border-gray-400 rounded-lg text-center text-2xl font-semibold focus:outline-none focus:ring-2 focus:ring-[#EE2B69] transition"
+          className="w-12 h-12 sm:w-14 sm:h-14 border border-gray-400 rounded-lg text-center text-2xl font-semibold focus:outline-none focus:ring-2 dark:text-white focus:ring-[#EE2B69] transition"
         />
       ))}
     </div>
 
-    {/* Verify Button */}
     <button
       onClick={handleSubmit}
       className="w-full sm:w-80 p-3 bg-[#EE2B69] text-white font-bold text-lg rounded-2xl border-2 border-black hover:opacity-90 transition"
@@ -152,7 +148,6 @@ export const Verification = () => {
       Verify
     </button>
 
-    {/* Resend Button */}
     <button
       className="text-blue-500 hover:underline hover:text-blue-700 text-sm disabled:opacity-50"
       onClick={handleResend}

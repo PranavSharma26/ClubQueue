@@ -50,7 +50,7 @@ export const EventContainer = () => {
   }, [search]);
 
   return (
-    <div className="flex flex-col p-5 pb-10 lg:px-10 gap-5 bg-gradient-to-br from-pink-100 to-yellow-50 dark:from-gray-600 dark:to-gray-900 transition-colors duration-300">
+    <div className="flex flex-col p-5 pb-10 lg:px-10 gap-5 bg-gradient-to-br from-pink-100 to-yellow-50 dark:from-gray-950 dark:via-blue-950 dark:to-gray-950 transition-colors duration-300">
       <div className="font-bold text-xl tracking-wide font-stretch-110% flex justify-between items-center text-black dark:text-gray-200">
         <p>All Events</p>
         {isClub && (

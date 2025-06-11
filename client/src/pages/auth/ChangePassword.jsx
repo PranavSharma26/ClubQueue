@@ -45,9 +45,9 @@ export const ChangePassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-yellow-100 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-2xl border-2 border-gray-300">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-yellow-100 px-4 dark:from-gray-950 dark:via-blue-950 dark:to-gray-950">
+      <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-2xl border-2 border-gray-300 dark:bg-gray-900">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 dark:text-white">
           Change <span className="text-[#EE2B69]">Password</span>
         </h2>
 
@@ -67,7 +67,7 @@ export const ChangePassword = () => {
                   message: "Password must be at least 5 characters"
                 }
               })}
-              className="w-full p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+              className="w-full dark:bg-gray-800 dark:text-white p-3 px-5 text-lg rounded-xl bg-gray-100 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
             />
             {errors.newPassword && (
               <p className="text-sm text-red-500 mt-1 ml-1">

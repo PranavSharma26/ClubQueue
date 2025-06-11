@@ -36,7 +36,7 @@ export const Card = ({ event }) => {
   };
 
   return (
-    <div className="p-4 w-full flex flex-col border-[1.5px] rounded-lg gap-3 shadow-xl bg-white dark:bg-gray-800 dark:border-gray-700">
+    <div className="p-4 w-full flex flex-col border-[1.5px] rounded-lg gap-3 shadow-xl bg-white dark:bg-gray-900 dark:border-gray-700">
       <div className="flex justify-between">
         <p className="tracking-wide text-lg font-semibold truncate w-full text-black dark:text-white">
           {event.name}
