@@ -93,7 +93,7 @@ export const ClubDashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="h-fit w-full flex flex-col gap-1">
+      <div className="h-fit w-full flex flex-col gap-1 dark:text-white">
         {clubEvents.length > 0 ? (
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 10 }} aria-label="simple table">

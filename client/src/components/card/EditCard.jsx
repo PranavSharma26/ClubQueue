@@ -198,7 +198,7 @@ export const EditCard = ({ event,onClose }) => {
 
           {showImageOptions && (
             <div
-              className="fixed w-screen h-screen inset-0 z-25 flex backdrop-blur-lg justify-center items-center bg-black bg-opacity-40"
+              className="fixed w-screen h-screen inset-0 z-50 flex backdrop-blur-lg justify-center items-center bg-white/20 dark:bg-black/30"
               onClick={() => setShowImageOptions(false)}
             >
               <div

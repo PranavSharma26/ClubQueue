@@ -106,7 +106,6 @@ export const EventForm = ({ onClose }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-4 sm:gap-5 pb-4"
       >
-        {/* Event Name */}
         <input
           {...register("name", { required: "Event name is required" })}
           type="text"
@@ -115,7 +114,6 @@ export const EventForm = ({ onClose }) => {
         />
         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-        {/* Description */}
         <textarea
           {...register("description", {
             required: "Description is required",
@@ -126,7 +124,6 @@ export const EventForm = ({ onClose }) => {
         />
         {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-        {/* Image Field */}
         <input {...register("imgPath", { required: "Image is Required" })} type="hidden" />
         <div
           className="w-full p-3 bg-gray-100 dark:bg-gray-700 rounded-3xl px-4 sm:px-6 text-lg sm:text-xl border-2 border-gray-500 dark:border-gray-400 text-start text-gray-500 dark:text-white hover:cursor-pointer"
@@ -140,7 +137,6 @@ export const EventForm = ({ onClose }) => {
         </div>
         {errors.imgPath && <p className="text-red-500">{errors.imgPath.message}</p>}
 
-        {/* Date */}
         <input
           {...register("eventDate", { required: "Date & time required" })}
           type="datetime-local"
@@ -148,7 +144,6 @@ export const EventForm = ({ onClose }) => {
         />
         {errors.eventDate && <p className="text-red-500">{errors.eventDate.message}</p>}
 
-        {/* Participants */}
         <input
           {...register("maxParticipants", {
             required: "Max participants required",
@@ -161,7 +156,6 @@ export const EventForm = ({ onClose }) => {
         />
         {errors.maxParticipants && <p className="text-red-500">{errors.maxParticipants.message}</p>}
 
-        {/* Location */}
         <input
           {...register("location", { required: "Location is required" })}
           type="text"
@@ -170,7 +164,6 @@ export const EventForm = ({ onClose }) => {
         />
         {errors.location && <p className="text-red-500">{errors.location.message}</p>}
 
-        {/* Registration Link */}
         <input
           {...register("registrationLink", { required: "Registration link is required" })}
           type="text"
@@ -179,7 +172,6 @@ export const EventForm = ({ onClose }) => {
         />
         {errors.registrationLink && <p className="text-red-500">{errors.registrationLink.message}</p>}
 
-        {/* Submit */}
         <input
           type="submit"
           disabled={isSubmitting}
@@ -189,7 +181,6 @@ export const EventForm = ({ onClose }) => {
           }`}
         />
 
-        {/* Image Option Modal */}
         {showImageOptions && (
           <div
             className="fixed w-screen h-screen inset-0 z-25 flex backdrop-blur-lg bg-black/30 justify-center items-center"
