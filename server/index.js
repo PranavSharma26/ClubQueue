@@ -20,13 +20,25 @@ import authRoutes from "./routes/auth.js"
 import cookieParser from "cookie-parser";
 dotenv.config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({
+   origin: [
+     "http://localhost:5173",
+     "https://club-queue.vercel.app"
+    ], 
+    credentials: true 
+}));
 
-await dbConnect();
+try {
+  await dbConnect();
+  console.log("Database connected successfully");
+} catch (err) {
+  console.error("Database connection failed:", err.message);
+  process.exit(1); 
+}
 
 app.get("/", (req, res) => {
   res.send('Hi this is "/" page');
@@ -55,6 +67,6 @@ app.use("/api/club",fetchEventRoute);
 app.use("/api/club",uploadClubLogoRoute);
 app.use("/api/club",deleteClubRoute);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`App listening on port ${port}`);
 });
