@@ -4,7 +4,7 @@ import { useClubAuth } from "../context/ClubContext";
 import { EventForm } from "./EventForm";
 import { DetailedCard } from "./card/DetailedCard";
 import { useEventAuth } from "../context/EventContext";
-import { useSearchAuth } from "../context/searchContext";
+import { useSearchAuth } from "../context/SearchContext";
 
 export const EventContainer = () => {
   const { club } = useClubAuth();

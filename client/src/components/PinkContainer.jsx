@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useSearchAuth } from "../context/searchContext";
+import { useSearchAuth } from "../context/SearchContext";
 
 export const PinkContainer = () => {
   const [value, setValue] = useState("");
